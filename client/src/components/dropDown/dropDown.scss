@@ -1,0 +1,62 @@
+@import "../../styles/global";
+
+.dropDown {
+  height: max-content;
+  width: fit-content;
+  position: relative !important;
+
+  button {
+    padding: 0.5em;
+    font-style: normal;
+    font-size: $font-size-option;
+    font-weight: $font-weight-bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+    color: black;
+    border: none;
+    background-color: $bg-fill-color-green;
+    cursor: pointer;
+    border-radius: $border-radius-medium;
+    width: max-content;
+  }
+
+  ul {
+    position: absolute !important;
+    top: 2em;
+
+    width: 0px;
+    height: 0px;
+    padding: 0.5em;
+    margin-top: 1em;
+    background-color: $bg-secondary;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    border-radius: $border-radius-medium;
+    align-items: center;
+    opacity: 0;
+    box-shadow: $box-shadow-dark;
+
+    li {
+      list-style: none;
+      margin: 0;
+      width: 100%;
+      padding: 0.5em;
+      font-weight: $font-weight-medium;
+      font-size: $font-size-base;
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $bg-primary;
+        border-radius: $border-radius-light;
+      }
+    }
+
+    .selected {
+      background-color: $bg-primary;
+    }
+  }
+}

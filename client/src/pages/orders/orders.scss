@@ -1,0 +1,98 @@
+@import "../../styles/global";
+
+.orders {
+  min-height: 100vh;
+  width: 100%;
+  background-color: $bg-secondary;
+  position: relative;
+
+  .home-icon {
+    position: absolute;
+    left: 3rem;
+    top: 8rem;
+    font-size: 2em;
+    cursor: pointer;
+  }
+
+  .orders-wrapper {
+    min-height: 85vh;
+    max-height: 85vh;
+    width: 60%;
+    margin: 1em auto;
+    background-color: $bg-primary;
+    padding: 2rem 3rem;
+
+    .orders-head {
+      display: flex;
+      gap: 5rem;
+      color: $text-primary;
+
+      h1 {
+        padding: 0;
+        display: inline-block;
+        font-weight: $font-weight-medium;
+      }
+    }
+    .order-summary {
+      margin: 2em 0;
+      height: 70vh;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+  }
+}
+
+.order-item {
+  width: 100%;
+  background-color: rgba(107, 107, 107, 0.274);
+  border-radius: $border-radius-medium;
+  margin: 0.5em 0;
+  color: $text-primary;
+  cursor: pointer;
+
+  .order-info,
+  p {
+    display: flex;
+    align-items: center;
+  }
+
+  .order-info {
+    justify-content: space-around;
+    padding: 1.5em;
+
+    p {
+      font-size: $font-size-option;
+    }
+
+    span {
+      color: orange;
+      margin-right: 0.5em;
+    }
+
+    .date {
+      color: rgba(214, 214, 214, 0.568);
+    }
+  }
+
+  .order-items {
+    overflow: hidden;
+  }
+}
+
+.order-item-info {
+  background-color: rgba(70, 70, 70, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0.4em 0;
+
+  .item-img-name {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+  }
+
+  img {
+    height: 50px;
+  }
+}

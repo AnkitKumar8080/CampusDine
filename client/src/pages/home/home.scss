@@ -1,0 +1,44 @@
+@import "../../styles/global";
+
+.home {
+  width: 100%;
+  min-height: 100vh;
+  background-color: $bg-secondary;
+  position: relative;
+
+  .cart {
+    position: absolute;
+    right: 0;
+    z-index: 9;
+  }
+
+  .home-wrapper {
+    width: 70%;
+    width: 70%;
+    margin: 0 auto;
+    padding: 1rem 0;
+    // background-color: $bg-primary;
+    // border: 1px solid rgba(211, 211, 211, 0.089);
+
+    h1 {
+      color: $text-primary;
+      font-weight: $font-weight-medium;
+      padding: 0.2rem;
+      margin-left: 4rem;
+      display: inline-block;
+      border-bottom: 2px solid $bg-fill-color-green;
+    }
+
+    .food-items-wrapper {
+      margin-top: 2rem;
+      // background-color: teal;
+      width: 100%;
+      height: max-content;
+      display: grid;
+      grid-template-columns: max-content max-content max-content;
+      grid-column-gap: 4rem;
+      row-gap: 4rem;
+      justify-content: center;
+    }
+  }
+}

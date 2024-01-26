@@ -1,0 +1,113 @@
+@import "../../styles/global";
+
+.foodItemCard {
+  max-height: max-content;
+  width: 300px;
+  display: flex;
+  background-color: $bg-primary;
+  flex-direction: column;
+  align-items: center;
+  color: $bg-1-color;
+  position: relative;
+  border-radius: 10%; // temporarily
+  padding: 0 1.5em 0.5em 1.5em;
+  transition: 0.2s;
+  margin-top: 4em;
+
+  &:hover {
+    box-shadow: $box-shadow-medium;
+    scale: 1.02;
+  }
+
+  img {
+    max-height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    top: -4em;
+    margin: 0 auto;
+  }
+
+  .item-description {
+    margin-top: 9em;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      font-size: $font-size-header;
+    }
+
+    p {
+      color: $text-2-primary;
+      margin: 0.5em 0;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+    }
+
+    .item-rating {
+      display: flex;
+      gap: 1em;
+      span {
+        .icon {
+          margin: 0 0.3em;
+        }
+        .star {
+          color: $bg-fill-color-green;
+        }
+        .veg {
+          color: $bg-fill-color-green;
+        }
+      }
+    }
+
+    .item-cost {
+      margin-top: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        color: $text-primary;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-option-large;
+      }
+
+      .add-to-cart {
+        .icon {
+          color: $bg-fill-color-green;
+          font-size: 2em;
+          cursor: pointer;
+          transition: 0.1s;
+
+          &:hover {
+            scale: 1.1;
+          }
+        }
+
+        .item-count {
+          display: flex;
+          background-color: $bg-secondary;
+          border-radius: $border-radius-medium;
+
+          .icon-btn {
+            margin: 2px 10px;
+            font-size: $font-size-header;
+            background-color: transparent !important;
+            color: $text-primary;
+            cursor: pointer;
+          }
+
+          .minus {
+            color: grey;
+          }
+
+          .plus {
+            color: $bg-fill-color-green;
+          }
+        }
+      }
+    }
+  }
+}

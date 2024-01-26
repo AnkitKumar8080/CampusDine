@@ -1,0 +1,184 @@
+@import "../../styles/global";
+
+.navbar {
+  width: 100%;
+  height: 10vh;
+  background-color: $bg-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.5px solid rgba(128, 128, 128, 0.075);
+
+  // img {
+  //   height: 50px;
+  // }
+
+  .left {
+    margin: 0 1rem;
+    img {
+      height: 60px;
+    }
+  }
+
+  .mid {
+    .search-inp {
+      background-color: $bg-primary;
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      padding: 0.8rem 1.5rem;
+      width: 400px;
+      border-radius: $border-radius-high;
+      color: white;
+
+      input {
+        background-color: transparent !important;
+        outline: none;
+        border: none;
+        color: white;
+        font-size: $font-size-option;
+        width: 90%;
+      }
+      .icon {
+        font-size: 20px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    align-items: center;
+    margin: 0 2rem;
+    gap: 2rem;
+
+    .profile-pic {
+      img {
+        height: 50px;
+        width: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+
+    .cart-div,
+    .menu-div {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: $bg-primary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+
+      .menu-tray {
+        position: absolute;
+        z-index: 99;
+        top: 4rem;
+        right: 2rem;
+        color: white;
+        width: max-content;
+        background-color: $bg-primary;
+        box-shadow: $box-shadow-dark;
+        padding: 2rem;
+        border-radius: $border-radius-medium;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img {
+          height: 50px;
+          width: 50px;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+        p {
+          font-size: $font-size-option-large;
+          margin: 0.5rem;
+        }
+
+        ul {
+          li {
+            display: flex;
+            gap: 1rem;
+            font-size: $font-size-base;
+            margin-top: 1rem;
+            transition: 0.1s;
+
+            .icon {
+              color: $bg-fill-color-1;
+            }
+
+            &:hover {
+              color: $text-primary-hover;
+            }
+          }
+        }
+      }
+      // .hide-tray {
+      //   visibility: hidden;
+      // }
+    }
+
+    .cart-div {
+      .icon {
+        color: white;
+        font-size: 20px;
+      }
+
+      span {
+        position: absolute;
+        top: 0;
+        right: 0.5rem;
+        color: $text-secondary-2;
+      }
+    }
+
+    .menu-div {
+      cursor: pointer;
+
+      .ham-line {
+        height: 3px;
+        width: 25px;
+        background-color: white;
+        border-radius: $border-radius-medium;
+
+        &::before,
+        &::after {
+          content: "";
+          height: 3px;
+          width: 25px;
+          background-color: white;
+          margin: 6px 0;
+          border-radius: $border-radius-medium;
+          transition: 0.4s;
+          display: block;
+        }
+
+        &::before {
+          transform: translateY(-13px);
+        }
+
+        &::after {
+          transform: translateY(-9px);
+        }
+      }
+    }
+    .ham-open .ham-line {
+      transform: rotate(-45deg);
+    }
+
+    .ham-open .ham-line::before {
+      transform: translateY(-5px) rotate(-90deg);
+      // display: none;
+    }
+
+    .ham-open .ham-line::after {
+      transform: translateY(-15px) rotate(90deg);
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+}

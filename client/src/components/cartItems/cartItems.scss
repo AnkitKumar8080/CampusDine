@@ -1,0 +1,135 @@
+@import "../../styles/global";
+
+.cart-items {
+  background-color: $bg-primary;
+  padding-top: 1.5rem;
+  border-radius: $border-radius-light;
+  box-shadow: $box-shadow-dark;
+  margin: 1rem;
+  position: relative;
+
+  .close-cart {
+    position: absolute;
+    right: 0.5em;
+    top: 0.1em;
+    color: red;
+    font-size: $font-size-header;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+  }
+
+  .cart-items-cont {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 0.4em;
+    max-height: 70vh;
+    overflow-y: scroll;
+  }
+
+  .cart-bottom {
+    margin-top: 1em;
+    border-top: 1px solid rgba(211, 211, 211, 0.123);
+    display: flex;
+    justify-content: space-between;
+    color: $text-primary;
+    padding: 1em;
+
+    p {
+      display: flex;
+      align-items: center;
+      font-size: $font-size-option;
+      font-weight: $font-weight-bold;
+
+      span {
+        color: rgb(136, 136, 136);
+        font-weight: $font-weight-normal;
+      }
+
+      .icon {
+        color: $bg-fill-color-green;
+        margin-left: 0.5em;
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      background-color: $bg-fill-color-green;
+      outline: none;
+      border: none;
+      padding: 0.5em 1em;
+      border-radius: $border-radius-high;
+      cursor: pointer;
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      letter-spacing: 1px;
+      color: black;
+      transition: 0.2s;
+
+      &:hover {
+        scale: 1.05;
+      }
+    }
+  }
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background-color: $bg-secondary;
+  border-radius: $border-radius-high;
+  width: max-content;
+  gap: 6rem;
+  color: $text-primary;
+  padding: 1rem;
+
+  .item-info,
+  .item-count,
+  .item-cost,
+  .icon-holder {
+    display: flex;
+    align-items: center;
+  }
+
+  .cart-item-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .item-info {
+    gap: 1em;
+    img {
+      height: 4em;
+    }
+  }
+  .item-count {
+    span {
+      margin: 0.5em;
+    }
+
+    .icon-holder {
+      background-color: rgba(37, 37, 37, 0.459);
+      border-radius: 50%;
+      padding: 5px;
+      cursor: pointer;
+    }
+  }
+  .item-cost {
+    .icon {
+      font-size: $font-size-option;
+      color: $bg-fill-color-green;
+    }
+  }
+
+  .item-cancel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-size: $font-size-header;
+    cursor: pointer;
+  }
+}

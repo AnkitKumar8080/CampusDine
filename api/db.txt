@@ -1,0 +1,74 @@
+CREATE TABLE Users (
+  userId VARCHAR(255), 
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  avatar VARCHAR(255),
+  role VARCHAR(255) DEFAULT 'user',
+  email VARCHAR(255) NOT NULL UNIQUE,
+  createdAt VARCHAR(255) NOT NULL, 
+  updatedAt VARCHAR(255) NOT NULL,
+  PRIMARY KEY (userId)
+); 
+
+CREATE TABLE Categories (
+  categoryId VARCHAR(255) PRIMARY KEY ,
+  categoryName VARCHAR(255) NOT NULL,
+  description VARCHAR(255),
+  createdAt VARCHAR(255) NOT NULL,
+  updatedAt VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Products (
+  productId VARCHAR(255) PRIMARY KEY,
+  productName VARCHAR(255) NOT NULL,
+  image VARCHAR(255) DEFAULT "noImg.png",
+  rating INT DEFAULT 0,
+  description VARCHAR(255) DEFAULT "No Description",
+  vegetarian BOOLEAN NOT NULL,
+  price INT NOT NULL,
+  categoryId VARCHAR(255) NOT NULL,
+  createdAt VARCHAR(255) NOT NULL,
+  updatedAt VARCHAR(255) NOT NULL,
+  FOREIGN KEY (categoryId) REFERENCES Categories(categoryId) ON DELETE CASCADE ON UPDATE CASCADE 
+); 
+
+CREATE TABLE Orders (
+  orderId VARCHAR(255) PRIMARY KEY, 
+  userId VARCHAR(255) NOT NULL,
+  orderNumber BIGINT UNIQUE AUTO_INCREMENT, 
+  pickUpTime VARCHAR(255) NOT NULL,
+  expiryDate VARCHAR(255) NOT NULL,
+  total INT NOT NULL,
+  createdAt VARCHAR(255) NOT NULL,
+  updatedAt VARCHAR(255) NOT NULL,
+  FOREIGN KEY (userId) REFERENCES Users(userId) ON DELETE CASCADE ON UPDATE CASCADE
+); 
+
+CREATE TABLE OrderItems (
+  orderItemsId VARCHAR(255) PRIMARY KEY,
+  orderId VARCHAR(255) NOT NULL, 
+  productId VARCHAR(255) NOT NULL, 
+  quantity INT DEFAULT 1, 
+  subtotal INT NOT NULL, 
+  createdAt VARCHAR(255) NOT NULL, 
+  updatedAt VARCHAR(255) NOT NULL, 
+  
+  FOREIGN KEY (orderId) REFERENCES Orders(orderId) ON DELETE CASCADE ON UPDATE CASCADE, 
+  FOREIGN KEY (productId) REFERENCES Products(productId) ON DELETE CASCADE ON UPDATE CASCADE
+
+); 
+
+CREATE TABLE OrderStatus (
+  orderStatusId VARCHAR(255) PRIMARY KEY,
+  orderId VARCHAR(255) NOT NULL,
+  status ENUM ('processing', 'placed', 'ready', 'delivered', 'cancelled', 'expired') DEFAULT 'processing', 
+  createdAt VARCHAR(255) NOT NULL,
+  updatedAt VARCHAR(255) NOT NULL,
+  FOREIGN KEY (orderId) REFERENCES Orders(orderId) ON DELETE CASCADE ON UPDATE CASCADE
+); 
+
+
+
+
+
+test if trycatch finally closes the db connection

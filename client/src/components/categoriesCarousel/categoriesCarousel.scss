@@ -1,0 +1,30 @@
+@import "../../styles/global";
+
+.swiper2 {
+  // background-color: grey;
+  max-width: 85%;
+  margin: 2rem auto;
+  padding: 0 2rem 2rem 2rem;
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+  }
+
+  .swiper-pagination .swiper-pagination-bullet {
+    background-color: white;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: $btn-2-bg;
+    transition: 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+    &:after {
+      font-size: 40px;
+    }
+  }
+}
