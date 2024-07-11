@@ -1,4 +1,28 @@
+# Node modules
 /client/node_modules
 /admin/node_modules
 /api/node_modules
+
+# Environment variables
 .env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# MacOS files
+.DS_Store
+
+# Other system files
+Thumbs.db
