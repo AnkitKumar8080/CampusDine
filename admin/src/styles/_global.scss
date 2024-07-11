@@ -1,0 +1,98 @@
+/* Colors */
+$bg-primary: #18171c;
+$bg-secondary: #100f14;
+
+$bg-fill-secondary: rgba(59, 59, 59, 0.26);
+
+$bg-fill-color-1: #e5570f;
+$bg-fill-color-1-hover: #cf4f0f;
+$bg-fill-color-green: #12c458;
+$bg-fill-color-red: red;
+$bg-1-color: whitesmoke;
+
+$text-primary: #ffffff;
+$text-2-primary: grey;
+
+$text-primary-hover: #7a7a7a;
+$text-secondary: rgb(245, 245, 245);
+$text-secondary-2: red;
+
+$btn-1-bg: #12c458;
+$btn-2-bg: #f00c2d;
+$btn-3-bg: #ed3d54;
+
+/* Font Sizes */
+$font-size-small: 0.875em; // 14px / 16px = 0.875em
+$font-size-base: 1em; // 16px / 16px = 1em
+$font-size-option: 1.125em; // 18px / 16px = 1.125em
+$font-size-option-large: 1.25em; // 20px / 16px = 1.25em
+$font-size-header: 1.5em; // 24px / 16px = 1.5em
+$font-size-header-large: 1.875em; // 30px / 16px = 1.875em
+
+$font-size-xl: 2em;
+$font-size-xxl: 2.5em;
+$font-size-xxxl: 3em;
+
+/* Font Weights */
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extra-bold: 800;
+$font-weight-black: 900;
+
+/* Box Shadows */
+$box-shadow-light: rgba(0, 0, 0, 0.138) 0px 2px 8px 0px;
+$box-shadow-medium: 0 0 40px 0 rgba(0, 0, 0, 0.65);
+$box-shadow-dark: 0 0 40px 0 rgba(0, 0, 0, 0.774);
+
+/* Border Radius */
+$border-radius-light: 5px;
+$border-radius-medium: 10px;
+$border-radius-high: 20px;
+
+/* Reset Styles */
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth scroll;
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  // color: $text-primary;
+
+  /* Width and Track */
+  ::-webkit-scrollbar {
+    width: 5px; /* Set the width of the scrollbar */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: $bg-secondary; /* Set the color of the track (the area behind the scrollbar) */
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: grey; /* Set the color of the scrollbar handle */
+    border-radius: 6px; /* Set the border-radius to round the corners of the handle */
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: darkgrey; /* Change the color of the handle on hover */
+  }
+
+  /* Button (for up and down buttons on the scrollbar) */
+  ::-webkit-scrollbar-button {
+    display: none; /* Hide the scrollbar buttons */
+  }
+
+  .Link {
+    text-decoration: none;
+    color: $text-primary;
+  }
+
+  .error-message {
+    font-size: $font-size-small;
+    color: red;
+  }
+}

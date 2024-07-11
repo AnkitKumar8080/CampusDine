@@ -9,6 +9,8 @@ import {
   loginUser,
   registerUser,
   updateUser,
+  uploadOtherImages,
+  uploadUserProfile,
 } from "../controllers/user.controllers.js";
 import { validate } from "../validators/validate.js";
 import { verifyJwt } from "../middlewares/jwt.authMiddleware.js";
@@ -19,15 +21,19 @@ import {
 } from "../controllers/order.controller.js";
 const router = Router();
 
+// route to upload profile pic
+router.route("/upload-profile").post(verifyJwt, uploadUserProfile);
+// route to upload product and other images
+router.route("/upload-images").post(verifyJwt, uploadOtherImages);
+
 // user routes
 router.route("/register").post(userRegisterValidator(), validate, registerUser);
 router.route("/login").post(userLoginValidator(), validate, loginUser);
 router.route("/updateuser").patch(validate, verifyJwt, updateUser);
 router.route("/get-products").get(validate, verifyJwt, getProducts);
 router.route("/get-categories").get(validate, verifyJwt, getCategories);
-router.route("/get-all-orders").get(validate, verifyJwt, getAllUserOrders);
+router.route("/order").get(validate, verifyJwt, getAllUserOrders);
 
-// order routes
 router
   .route("/order")
   .post(placeOrderValidator(), validate, verifyJwt, placeOrder);

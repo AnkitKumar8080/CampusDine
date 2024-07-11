@@ -20,6 +20,7 @@ import { CgOptions } from "react-icons/cg";
 import { RiHomeFill } from "react-icons/ri";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
+import { BiImageAdd } from "react-icons/bi";
 import {
   backgroundImg1,
   backgroundImg2,
@@ -62,6 +63,7 @@ export {
   RiHomeFill,
   IoIosArrowUp,
   IoIosArrowDown,
+  BiImageAdd,
   backgroundImg1,
   backgroundImg2,
   backgroundImg3,
@@ -95,11 +97,12 @@ export const menuLinks = [
     icon: BsBox2,
     link: "/orders",
   },
-  {
-    id: "Logout",
-    icon: BsBoxArrowInLeft,
-    link: "/logout",
-  },
+  // {
+  //   id: "Logout",
+  //   icon: BsBoxArrowInLeft,
+  //   link: "/logout",
+  //   onclick: handleLogout,
+  // },
 ];
 
 export const categoryItems = [

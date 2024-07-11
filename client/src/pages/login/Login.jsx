@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./login.scss";
 import {
   backgroundImg1,
@@ -11,8 +11,18 @@ import {
 } from "../../constants/index.js";
 import Carousel from "../../components/carousel/Carousel.jsx";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../features/auth/authAction.js";
 export default function Login() {
   const [hidePass, setHidePass] = useState(true);
+  const emailRef = useRef();
+  const passRef = useRef();
+  const dispatch = useDispatch();
+
+  const handleSignIn = (e) => {
+    e.preventDefault();
+    dispatch(signIn(emailRef.current.value, passRef.current.value));
+  };
 
   return (
     <div className="login">
@@ -22,15 +32,16 @@ export default function Login() {
             <img src={logo} alt="" />
           </div>
           <h1>Login</h1>
-          <form className="login-form">
+          <form onSubmit={handleSignIn} className="login-form">
             <label htmlFor="username">Email</label>
-            <input type="email" placeholder="Enter Email" />
+            <input type="email" placeholder="Enter Email" ref={emailRef} />
 
             <label htmlFor="password">Password</label>
             <div className="pass-div">
               <input
                 type={`${hidePass ? "password" : "text"}`}
                 placeholder="Enter you password"
+                ref={passRef}
               />
               {hidePass ? (
                 <FaEyeSlash
@@ -44,7 +55,9 @@ export default function Login() {
                 />
               )}
             </div>
-            <button className="button">Sign Up</button>
+            <button type="submit" className="button">
+              Sign In
+            </button>
 
             <div className="left-bottom">
               <p>or</p>

@@ -18,7 +18,7 @@ export default function Carousel({ images }) {
 
   return (
     <div className="carousel">
-      <Swiper carouselConfig className="swiper-1">
+      <Swiper {...carouselConfig} className="swiper-1">
         {images.map((img) => (
           <SwiperSlide className="swiper-slide-1">
             <img src={img} />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "./register.scss";
 import {
   backgroundImg1,
@@ -11,8 +11,28 @@ import {
 } from "../../constants/index.js";
 import Carousel from "../../components/carousel/Carousel.jsx";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signUp } from "../../features/auth/authAction.js";
 export default function Register() {
   const [hidePass, setHidePass] = useState(true);
+  const auth = useSelector((select) => select.auth);
+
+  const dispatch = useDispatch();
+  const usernameRef = useRef();
+  const emailRef = useRef();
+  const passRef = useRef();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      signUp(
+        usernameRef.current.value,
+        emailRef.current.value,
+        passRef.current.value
+      )
+    );
+  };
 
   return (
     <div className="register">
@@ -22,18 +42,21 @@ export default function Register() {
             <img src={logo} alt="" />
           </div>
           <h1>Register</h1>
-          <form className="register-form">
+          <form onSubmit={handleRegister} className="register-form">
+            <p className="error-message">{auth.error && auth.error}</p>
+
             <label htmlFor="username">Username</label>
-            <input type="text" placeholder="Enter username" />
+            <input type="text" placeholder="Enter username" ref={usernameRef} />
 
             <label htmlFor="username">Email</label>
-            <input type="email" placeholder="Enter Email" />
+            <input type="email" placeholder="Enter Email" ref={emailRef} />
 
             <label htmlFor="password">Password</label>
             <div className="pass-div">
               <input
                 type={`${hidePass ? "password" : "text"}`}
                 placeholder="Enter you password"
+                ref={passRef}
               />
               {hidePass ? (
                 <FaEyeSlash
@@ -47,7 +70,9 @@ export default function Register() {
                 />
               )}
             </div>
-            <button className="button">Sign Up</button>
+            <button type="submit" className="button">
+              Sign Up
+            </button>
 
             <div className="left-bottom">
               <p>or</p>

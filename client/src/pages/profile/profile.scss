@@ -1,0 +1,131 @@
+@import "../../styles/global";
+.profile {
+  width: 100%;
+  min-height: 100vh;
+  background-color: $bg-secondary;
+  position: relative;
+
+  .profile-wrapper {
+    min-height: 85vh;
+    max-height: 85vh;
+    max-width: 30%;
+    margin: 1em auto;
+    background-color: $bg-primary;
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img,
+    .img-div {
+      width: 12em;
+      height: 12em;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .profile-details {
+      display: flex;
+      flex-direction: column;
+      margin: 2em 0;
+      width: 80%;
+
+      label,
+      .pass-label {
+        // color: $text-primary;
+        color: orange;
+        margin-bottom: 0.1em;
+        font-size: $font-size-option;
+      }
+
+      input,
+      .pass-input {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        padding: 0.5em 0.5em;
+        color: $text-primary;
+        border-bottom: 1px solid lightgrey;
+        margin-bottom: 2em;
+        font-size: $font-size-base;
+      }
+
+      .pass-input {
+        width: 100%;
+        padding: 0;
+
+        input {
+          margin: 0;
+          border: none;
+          width: 90%;
+        }
+
+        .icon {
+          cursor: pointer;
+        }
+      }
+    }
+    button {
+      width: fit-content;
+      border: none;
+      padding: 0.5em 2em;
+      font-size: $font-size-base;
+      font-weight: $font-weight-medium;
+      border-radius: $border-radius-high;
+      background: $bg-fill-color-green;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        scale: 1.01;
+      }
+    }
+
+    .profile-mid-div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 2rem;
+
+      #fileInput {
+        display: none;
+      }
+
+      .fileLabel {
+        position: relative;
+        .w-mark-add-img {
+          cursor: pointer;
+          position: absolute;
+          top: 38%;
+          left: 38%;
+          font-size: 50px;
+          display: none;
+        }
+
+        &:hover {
+          img {
+            opacity: 0.2;
+          }
+          .w-mark-add-img {
+            display: inline-block;
+          }
+        }
+      }
+      .upd-img {
+        background: $bg-fill-color-green;
+        border: none;
+        border-radius: $border-radius-light;
+        margin-top: 0.5rem;
+        cursor: pointer;
+        padding: 0.5em;
+        font-size: $font-size-small;
+        font-weight: $font-weight-normal;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .profile-wrapper {
+      max-width: 90%;
+    }
+  }
+}

@@ -157,6 +157,8 @@ class ProductModel {
     } catch (error) {
       console.log("error while fetching products by categoryId", error);
       return error;
+    } finally {
+      if (db) db.release();
     }
   };
 

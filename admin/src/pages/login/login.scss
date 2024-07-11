@@ -1,0 +1,111 @@
+@import "../../styles/_global.scss";
+
+.login {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg-primary;
+
+  .login-wrapper {
+    width: 400px;
+    height: 500px;
+    background-color: white;
+    box-shadow: $box-shadow-dark;
+    display: flex;
+    border-radius: $border-radius-light;
+
+    .reg-wrap-left {
+      height: 100%;
+      width: 100%;
+      padding: 2rem;
+
+      .logo {
+        img {
+          height: 60px;
+        }
+      }
+
+      h1 {
+        margin-bottom: 2rem;
+      }
+
+      .login-form {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-size: $font-size-option;
+          margin: 0.5rem;
+        }
+
+        input {
+          width: 100%;
+          padding: 0.6rem;
+          font-size: $font-size-small;
+          color: black;
+          border: none;
+          outline: none;
+          background-color: rgba(211, 211, 211, 0.315);
+          border-radius: $border-radius-light;
+          margin-bottom: 1rem;
+        }
+
+        .pass-div {
+          width: 100%;
+          height: max-content;
+          background-color: rgba(211, 211, 211, 0.315);
+          border-radius: $border-radius-light;
+
+          input {
+            width: 90%;
+            background-color: transparent !important;
+            margin: 0;
+          }
+          .icon {
+            width: 10%;
+            text-align: center;
+            cursor: pointer;
+          }
+        }
+
+        .button {
+          width: 6rem;
+          color: white;
+          font-size: $font-size-small;
+          font-weight: $font-weight-medium;
+          border: none;
+          background-color: $bg-fill-color-1;
+          padding: 0.5rem;
+          margin: 1rem 0;
+          border-radius: $border-radius-high;
+          cursor: pointer;
+          transition: 0.2s ease-in-out;
+          &:hover {
+            background: $bg-fill-color-1-hover;
+          }
+        }
+
+        .left-bottom {
+          p {
+            text-align: center;
+            color: grey;
+            font-size: 12px;
+            margin: 0.5rem;
+
+            span {
+              color: #0067b6;
+              cursor: pointer;
+              &:hover {
+                color: #0087b6;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

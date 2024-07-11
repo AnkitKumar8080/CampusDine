@@ -2,7 +2,6 @@ import cron from "node-cron";
 import OrderModel from "../models/order.model.js";
 
 // Schedule a cron job to run every 12 hours
-
 export const runCronJobForOrderExpiration = () => {
   cron.schedule("* * * * *", async () => {
     try {

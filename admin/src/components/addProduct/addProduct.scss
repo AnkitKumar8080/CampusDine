@@ -1,0 +1,127 @@
+@import "../../styles/global";
+
+.addProdCat {
+  height: 100%;
+  width: 100%;
+  background-color: $bg-primary;
+  color: $text-primary;
+  display: flex;
+
+  .add-product-wrapper,
+  .add-category-wrapper {
+    height: auto;
+    width: 50%;
+    overflow-y: scroll !important;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+
+    h1 {
+      padding: 1em;
+    }
+
+    .new-product-form,
+    .new-category-form {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 2em;
+      div {
+        display: flex;
+        flex-direction: column;
+        width: max-content;
+
+        input,
+        textarea,
+        select {
+          outline: none;
+          background-color: $bg-fill-secondary;
+          border: none;
+          color: $text-primary;
+          padding: 0.5em;
+          font-size: $font-size-base;
+          border-radius: $border-radius-light;
+          margin: 0.5em 0;
+
+          option {
+            background-color: white !important;
+            color: black;
+          }
+        }
+
+        label {
+          margin-top: 1em;
+          font-size: $font-size-option;
+        }
+      }
+
+      .product-img-wrap,
+      .category-img-wrap {
+        width: 100%;
+        align-items: center;
+        margin: auto;
+        justify-content: center;
+        border: 1px solid rgba(128, 128, 128, 0.295);
+
+        label {
+          height: 10em;
+          width: 10em;
+          // min-width: 10em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            height: 100%;
+            // background-color: yellow;
+            // border-radius: 50%;
+          }
+        }
+
+        .icon {
+          font-size: $font-size-xxl;
+          color: rgba(128, 128, 128, 0.377);
+          cursor: pointer;
+        }
+      }
+
+      .product-name-wrap {
+        width: 100%;
+      }
+
+      .category-wrap,
+      .veg-wrap,
+      .price-wrap,
+      .rating-wrap {
+        width: max-content;
+      }
+
+      .category-wrap {
+        margin: 0 2em;
+      }
+
+      .desc-wrap {
+        width: 100%;
+      }
+
+      button {
+        outline: none;
+        border: none;
+        background-color: $bg-fill-color-green;
+        padding: 0.5em;
+        border-radius: $border-radius-medium;
+        margin: 1em 0;
+        font-size: $font-size-option;
+        font-weight: $font-weight-semibold;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .add-category-wrapper {
+    .new-category-form {
+      .category-name-wrap {
+        width: 100%;
+      }
+    }
+  }
+}

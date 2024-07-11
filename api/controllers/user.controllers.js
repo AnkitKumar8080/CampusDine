@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import { filterObject } from "../utils/helper.js";
 import { ProductModel } from "../models/product.model.js";
 import { categoriesModel } from "../models/categories.model.js";
+import { imagesUpload, profileUpload } from "../utils/multerSetup.js";
 
 // generating the jwt access token
 const generateAccessToken = async (userId) => {
@@ -24,6 +25,19 @@ const generateAccessToken = async (userId) => {
     );
   }
 };
+
+const getAllUsers = asyncHandler(async (req, res) => {
+  // get all users from db
+  const users = await UserModel.getAllUsers();
+
+  if (!users) {
+    throw new ApiError(404, "user not found");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, { users: users }, "users fetched successfully"));
+});
 
 const registerUser = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
@@ -82,6 +96,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
+    expires: new Date(Date.now() + 86400000),
   };
 
   return res
@@ -96,25 +111,58 @@ const loginUser = asyncHandler(async (req, res) => {
     ); // excluded pass field and return user with access token
 });
 
+// upload user images
+const uploadUserProfile = (req, res) => {
+  profileUpload.single("file")(req, res, (err) => {
+    if (err) {
+      return res
+        .status(400)
+        .json({ message: "Error uploading file", error: err.message });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ message: "Please upload a valid image" });
+    }
+
+    res.status(201).json({ message: "Image uploaded successfully" });
+  });
+};
+
+// upload product and other images
+const uploadOtherImages = (req, res) => {
+  imagesUpload.single("file")(req, res, (err) => {
+    if (err) {
+      return res
+        .status(400)
+        .json({ message: "Error uploading file", error: err.message });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ message: "Please upload a valid image" });
+    }
+
+    res.status(201).json({ message: "Image uploaded successfully" });
+  });
+};
+
 const updateUser = asyncHandler(async (req, res) => {
   let updateFields = req.body;
 
   // filter fields that are allowd to be udpated
-  updateFields = filterObject(updateFields, [
-    "username",
-    "userId",
-    "avatar",
-    "password",
-    "email",
-  ]);
+  // updateFields = filterObject(updateFields, [
+  //   "username",
+  //   "avatar",
+  //   "password",
+  //   "email",
+  // ]);
 
   if (
     updateFields.hasOwnProperty("oldPassword") &&
     updateFields.hasOwnProperty("newPassword")
   ) {
-    const user = await UserModel.getUserById(req?.user?.userId);
+    const user = await UserModel.getUserById(req?.user.userId);
 
-    console.log("getuserbyid user", user);
+    // console.log("getuserbyid user", user);
 
     const isPasswordValid = await bcrypt.compare(
       updateFields.oldPassword,
@@ -228,4 +276,13 @@ const getCategories = asyncHandler(async (req, res, next) => {
     );
 });
 
-export { registerUser, loginUser, updateUser, getProducts, getCategories };
+export {
+  uploadUserProfile,
+  getAllUsers,
+  registerUser,
+  loginUser,
+  updateUser,
+  getProducts,
+  getCategories,
+  uploadOtherImages,
+};

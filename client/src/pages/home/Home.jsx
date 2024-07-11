@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./home.scss";
 import Navbar from "../../components/navbar/Navbar";
 import CategoriesCarousel from "../../components/categoriesCarousel/CategoriesCarousel";
@@ -9,9 +9,21 @@ import { foodItems } from "../../constants";
 import CartItems from "../../components/cartItems/CartItems";
 import context from "../../context/context";
 import OutsideClickHandler from "react-outside-click-handler";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../features/userActions/product/productAction";
 
 export default function Home() {
   const { isToggleCart, setIsToggleCart } = useContext(context);
+
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  const product = useSelector((state) => state.product);
+
+  // fetch all the products when component is mounted
+  useEffect(() => {
+    dispatch(getProducts(token));
+  }, []);
+
   return (
     <div className="home">
       <OutsideClickHandler
@@ -45,15 +57,18 @@ export default function Home() {
           initial="hidden"
           animate="show"
         >
-          <h1 className="category-name">All Items</h1>
+          <h1 className="category-name">Items</h1>
         </motion.div>
         <div className="food-items-wrapper">
-          {foodItems.map((item) => (
+          {product.products?.map((item) => (
             <FoodItemCard
+              key={item.productId}
               name={item.productName}
               desc={item.description}
               price={item.price}
               rating={item.rating}
+              image={item.image}
+              item={item}
             />
           ))}
         </div>

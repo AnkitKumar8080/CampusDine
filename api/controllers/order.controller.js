@@ -53,7 +53,7 @@ export const getAllUserOrders = asyncHandler(async (req, res) => {
 
   const filteredOrders = await transformUserOrderData(userOrders);
 
-  console.log("filtered orders ", filteredOrders);
+  // console.log("filtered orders ", filteredOrders);
 
   return res
     .status(200)

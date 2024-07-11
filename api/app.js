@@ -12,6 +12,8 @@ import morgan from "morgan";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+dotenv.config();
+
 const app = express();
 
 const httpServer = http.createServer(app);
@@ -29,11 +31,11 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(cookieParser());
 app.use(morgan("dev"));
-dotenv.config();
 
 // importing user routes
 import userRouter from "./routes/user.routes.js";
 import adminRouter from "./routes/admin.routes.js";
+import { profileUpload } from "./utils/multerSetup.js";
 
 // app API's
 app.get("/api/v1/test", (req, res) => {

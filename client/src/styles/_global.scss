@@ -20,12 +20,12 @@ $btn-2-bg: #f00c2d;
 $btn-3-bg: #ed3d54;
 
 /* Font Sizes */
-$font-size-small: 14px;
-$font-size-base: 16px;
-$font-size-option: 18px;
-$font-size-option-large: 20px;
-$font-size-header: 24px;
-$font-size-header-large: 30px;
+$font-size-small: 0.875em; // 14px / 16px = 0.875em
+$font-size-base: 1em; // 16px / 16px = 1em
+$font-size-option: 1.125em; // 18px / 16px = 1.125em
+$font-size-option-large: 1.25em; // 20px / 16px = 1.25em
+$font-size-header: 1.5em; // 24px / 16px = 1.5em
+$font-size-header-large: 1.875em; // 30px / 16px = 1.875em
 
 /* Font Weights */
 $font-weight-light: 300;
@@ -83,5 +83,12 @@ $border-radius-high: 20px;
   .Link {
     text-decoration: none;
     color: $text-primary;
+  }
+
+  .error-message {
+    font-size: $font-size-small;
+    color: red;
+    text-align: center;
+    height: 1em;
   }
 }

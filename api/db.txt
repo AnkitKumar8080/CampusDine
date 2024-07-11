@@ -1,10 +1,10 @@
 CREATE TABLE Users (
   userId VARCHAR(255), 
-  username VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
   avatar VARCHAR(255),
-  role VARCHAR(255) DEFAULT 'user',
+  username VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  role VARCHAR(255) DEFAULT 'user',
   createdAt VARCHAR(255) NOT NULL, 
   updatedAt VARCHAR(255) NOT NULL,
   PRIMARY KEY (userId)
@@ -14,6 +14,7 @@ CREATE TABLE Categories (
   categoryId VARCHAR(255) PRIMARY KEY ,
   categoryName VARCHAR(255) NOT NULL,
   description VARCHAR(255),
+  categoryImage VARCHAR(255),
   createdAt VARCHAR(255) NOT NULL,
   updatedAt VARCHAR(255) NOT NULL
 );
@@ -72,3 +73,268 @@ CREATE TABLE OrderStatus (
 
 
 test if trycatch finally closes the db connection
+
+
+
+INSERT INTO Categories (categoryName, description, categoryImage)
+VALUES
+('All', 'All available food item', 'noCategory.png'),
+('NonVeg', 'Non Vegetarian dishes', 'noCategory.png'),
+('Chinese', 'Chinese dishes', 'noCategory.png'),
+('Salads', 'Fresh and healthy salads', 'noCategory.png'),
+('Meals', 'Complete meals', 'noCategory.png'),
+('Veg', 'Vegetarian dishes', 'noCategory.png'),
+('Beverages', 'Refreshing Beverages', 'noCategory.png'),
+('Snacks', 'Snack items', 'noCategory.png');
+
+
+
+{
+    "statusCode": 200,
+    "data": {
+        "products": [
+            {
+                "productId": "05380340-2874-437a-ae2b-649515e91d12",
+                "productName": "Pani Puri",
+                "image": "paniPuriImg.png",
+                "rating": "4.0",
+                "description": "Crunchy snack filled with spicy flavored water",
+                "vegetarian": 1,
+                "price": 40,
+                "categoryId": "fc57093e-971c-427d-aea7-7d33e96de32d",
+                "createdAt": "1706453379519",
+                "updatedAt": "1706453379519"
+            },
+            {
+                "productId": "223e29a3-20e1-4fe8-8ba8-c11fe5339b59",
+                "productName": "Mutton Rogan Josh",
+                "image": "muttonRoganJoshImg.png",
+                "rating": "4.0",
+                "description": "Spicy mutton curry from Kashmir",
+                "vegetarian": 0,
+                "price": 300,
+                "categoryId": "2a4472c6-50c3-4084-91fb-232c1b6c1737",
+                "createdAt": "1706453379538",
+                "updatedAt": "1706453379538"
+            },
+            {
+                "productId": "2779c77b-94e6-494f-be52-cc665e1671f0",
+                "productName": "Gulab Jamun",
+                "image": "gulabJamunImg.jpg",
+                "rating": "5.0",
+                "description": "Sweet deep-fried dumplings in sugar syrup",
+                "vegetarian": 1,
+                "price": 60,
+                "categoryId": "d1c4f1b8-7f7d-4b11-a00d-1815ccbab5ea",
+                "createdAt": "1706453379495",
+                "updatedAt": "1706453379495"
+            },
+            {
+                "productId": "2f40f76c-34c2-44d3-bf89-9f41344b6782",
+                "productName": "Aloo Paratha",
+                "image": "alooParathaImg.png",
+                "rating": "4.0",
+                "description": "Stuffed Indian bread with spiced potatoes",
+                "vegetarian": 1,
+                "price": 100,
+                "categoryId": "32a00b39-47e4-4ee3-bd51-b4f6923600bf",
+                "createdAt": "1706453379500",
+                "updatedAt": "1706453379500"
+            },
+            {
+                "productId": "450366b0-3444-4f99-931d-3cfdcae5b2ba",
+                "productName": "Paneer Tikka",
+                "image": "paneerTikkaImg.jpg",
+                "rating": "4.0",
+                "description": "Grilled paneer cubes marinated in spices",
+                "vegetarian": 1,
+                "price": 180,
+                "categoryId": "fc57093e-971c-427d-aea7-7d33e96de32d",
+                "createdAt": "1706453379469",
+                "updatedAt": "1706453379469"
+            },
+            {
+                "productId": "5aa37adf-5d48-4cd0-9785-c664a53e5861",
+                "productName": "Rasgulla",
+                "image": "rasgullaImg.jpg",
+                "rating": "5.0",
+                "description": "Soft and spongy syrup-soaked dessert",
+                "vegetarian": 1,
+                "price": 70,
+                "categoryId": "d1c4f1b8-7f7d-4b11-a00d-1815ccbab5ea",
+                "createdAt": "1706453379514",
+                "updatedAt": "1706453379514"
+            },
+            {
+                "productId": "5fa513a5-3c8e-472b-8ecd-902dc601daca",
+                "productName": "Tandoori Roti",
+                "image": "tandooriRotiImg.png",
+                "rating": "4.0",
+                "description": "Indian flatbread cooked in a tandoor",
+                "vegetarian": 1,
+                "price": 60,
+                "categoryId": "32a00b39-47e4-4ee3-bd51-b4f6923600bf",
+                "createdAt": "1706453379524",
+                "updatedAt": "1706453379524"
+            },
+            {
+                "productId": "765de12a-848d-48db-9d08-3364f3887e54",
+                "productName": "Butter Chicken",
+                "image": "butterChickenImg.png",
+                "rating": "4.0",
+                "description": "Creamy and flavorful chicken curry",
+                "vegetarian": 0,
+                "price": 250,
+                "categoryId": "2a4472c6-50c3-4084-91fb-232c1b6c1737",
+                "createdAt": "1706453379431",
+                "updatedAt": "1706453379431"
+            },
+            {
+                "productId": "7e06f3f4-973d-4c0a-b7d8-7b2f338f131e",
+                "productName": "Chicken Tikka Masala",
+                "image": "chickenTikkaMasalaImg.png",
+                "rating": "5.0",
+                "description": "Grilled chicken in a creamy tomato-based curry",
+                "vegetarian": 0,
+                "price": 270,
+                "categoryId": "2a4472c6-50c3-4084-91fb-232c1b6c1737",
+                "createdAt": "1706453379529",
+                "updatedAt": "1706453379529"
+            },
+            {
+                "productId": "7fe0090d-507b-48be-98d9-f643851a8671",
+                "productName": "Samosa",
+                "image": "samosaImg.png",
+                "rating": "3.0",
+                "description": "Crispy pastry filled with spiced potatoes",
+                "vegetarian": 1,
+                "price": 50,
+                "categoryId": "fc57093e-971c-427d-aea7-7d33e96de32d",
+                "createdAt": "1706453379481",
+                "updatedAt": "1706453379481"
+            },
+            {
+                "productId": "842bfd50-4358-43e5-a69a-53e0aa9dc20c",
+                "productName": "Masala Dosa",
+                "image": "masalaDosaImg.png",
+                "rating": "4.0",
+                "description": "Crispy rice crepe with spicy potato filling",
+                "vegetarian": 1,
+                "price": 150,
+                "categoryId": "32a00b39-47e4-4ee3-bd51-b4f6923600bf",
+                "createdAt": "1706453379457",
+                "updatedAt": "1706453379457"
+            },
+            {
+                "productId": "854e8f83-3ebc-4ed9-b5d4-d12af0238624",
+                "productName": "Mango Pickle",
+                "image": "mangoPickleImg.png",
+                "rating": "4.0",
+                "description": "Spicy and tangy mango pickle",
+                "vegetarian": 1,
+                "price": 30,
+                "categoryId": "b5951dd7-e8c9-4f5c-a301-01198bc61dce",
+                "createdAt": "1706453379547",
+                "updatedAt": "1706453379547"
+            },
+            {
+                "productId": "97c1985a-0047-4c19-b597-12b2524b2723",
+                "productName": "Bhindi Masala",
+                "image": "bhindiMasalaImg.jpg",
+                "rating": "4.0",
+                "description": "Okra cooked with spices",
+                "vegetarian": 1,
+                "price": 120,
+                "categoryId": "b5951dd7-e8c9-4f5c-a301-01198bc61dce",
+                "createdAt": "1706453379486",
+                "updatedAt": "1706453379486"
+            },
+            {
+                "productId": "98a1024d-6f96-4a59-a340-61e7ad9d1623",
+                "productName": "Chicken Korma",
+                "image": "chickenKormaImg.jpg",
+                "rating": "4.0",
+                "description": "Rich and creamy chicken curry",
+                "vegetarian": 0,
+                "price": 280,
+                "categoryId": "2a4472c6-50c3-4084-91fb-232c1b6c1737",
+                "createdAt": "1706453379505",
+                "updatedAt": "1706453379505"
+            },
+            {
+                "productId": "ab4ea2eb-7ca3-4cbb-bdd7-ba4f1539427c",
+                "productName": "Chole Bhature",
+                "image": "choleBhatureImg.webp",
+                "rating": "4.0",
+                "description": "Spiced chickpeas with deep-fried bread",
+                "vegetarian": 1,
+                "price": 180,
+                "categoryId": "fc57093e-971c-427d-aea7-7d33e96de32d",
+                "createdAt": "1706453379474",
+                "updatedAt": "1706453379474"
+            },
+            {
+                "productId": "b134a3c6-712c-4ced-886a-8f0bc1aeccaf",
+                "productName": "Mango Lassi",
+                "image": "mangoLassiImg.jpeg",
+                "rating": "5.0",
+                "description": "Refreshing yogurt drink with mango",
+                "vegetarian": 1,
+                "price": 80,
+                "categoryId": "d1c4f1b8-7f7d-4b11-a00d-1815ccbab5ea",
+                "createdAt": "1706453379490",
+                "updatedAt": "1706453379490"
+            },
+            {
+                "productId": "bb50d429-8fb2-4a64-975a-1d7c10dc668d",
+                "productName": "Vegetable Biryani",
+                "image": "vegetableBiryaniImg.png",
+                "rating": "4.0",
+                "description": "Flavorful rice with mixed vegetables",
+                "vegetarian": 1,
+                "price": 200,
+                "categoryId": "32a00b39-47e4-4ee3-bd51-b4f6923600bf",
+                "createdAt": "1706453379543",
+                "updatedAt": "1706453379543"
+            },
+            {
+                "productId": "ce85790f-6161-4c49-bbc7-f1fb07be0a75",
+                "productName": "Dal Makhani",
+                "image": "dalMakhaniImg.webp",
+                "rating": "4.0",
+                "description": "Lentils cooked with butter and cream",
+                "vegetarian": 1,
+                "price": 160,
+                "categoryId": "b5951dd7-e8c9-4f5c-a301-01198bc61dce",
+                "createdAt": "1706453379533",
+                "updatedAt": "1706453379533"
+            },
+            {
+                "productId": "e1175dbf-0887-45ca-9ff8-380eecef4b07",
+                "productName": "Pav Bhaji",
+                "image": "pavBhajiImg.avif",
+                "rating": "4.0",
+                "description": "Mixed vegetable curry served with bread",
+                "vegetarian": 1,
+                "price": 120,
+                "categoryId": "fc57093e-971c-427d-aea7-7d33e96de32d",
+                "createdAt": "1706453379509",
+                "updatedAt": "1706453379509"
+            },
+            {
+                "productId": "ef0e7f4d-1839-410d-9197-63eb87cf4665",
+                "productName": "Chicken Biryani",
+                "image": "chickenBiryaniImg.png",
+                "rating": "5.0",
+                "description": "Fragrant and flavorful rice with tender chicken pieces",
+                "vegetarian": 0,
+                "price": 300,
+                "categoryId": "32a00b39-47e4-4ee3-bd51-b4f6923600bf",
+                "createdAt": "1706453379463",
+                "updatedAt": "1706453379463"
+            }
+        ]
+    },
+    "message": "products fetched successfully",
+    "success": true
+}

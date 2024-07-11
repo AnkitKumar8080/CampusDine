@@ -1,0 +1,17 @@
+@import "../../styles/global";
+
+.home {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  background-color: grey; // temp color
+
+  .menu {
+    width: 6%;
+  }
+
+  .menu-items {
+    width: 94%;
+    height: 100%;
+  }
+}

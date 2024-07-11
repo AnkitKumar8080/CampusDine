@@ -13,24 +13,33 @@ import { motion, useAnimate } from "framer-motion";
 import { slideIn } from "../../utils/motion";
 import { Link } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler";
+import { useDispatch, useSelector } from "react-redux";
+import { getOrderHistory } from "../../features/userActions/order/orderAction.js";
+// import { getOrderHistory } from "../../features/userActions/order/orderAction";
 
-const OrderItemInfo = () => {
+const OrderItemInfo = ({ item }) => {
   return (
     <div className="order-item-info">
       <div className="item-img-name">
         {" "}
-        <img src={mealsImage} alt="" />
-        <p>north Indian</p>
+        <img
+          src={`${import.meta.env.VITE_API_BASE_IMAGE_URI}/assets/images/${
+            item.image
+          }`}
+          alt={item.productName}
+          loading="lazy"
+        />
+        <p>{item.productName}</p>
       </div>
-      <p>x2</p>
+      <p>x{item.quantity}</p>
       <p>
-        <LiaRupeeSignSolid /> 120
+        <LiaRupeeSignSolid /> {item.price}
       </p>
     </div>
   );
 };
 
-const OrderItem = () => {
+const OrderItem = ({ order }) => {
   const [dropOrderItemInfo, setDropOrderItemInfo] = useState(false);
   return (
     <div className="order-item">
@@ -40,20 +49,21 @@ const OrderItem = () => {
           onClick={() => setDropOrderItemInfo(!dropOrderItemInfo)}
         >
           <p>
-            <span>Order no:</span> 150
+            <span>Order no:</span> {order.orderNumber}
           </p>
 
           <p>
-            <span>Status:</span> delivered
+            <span>Status:</span> {order.orderStatus}
           </p>
 
           <p className="date">
-            <span>Date:</span> 14.01.2024
+            {/* <span>Date:</span> 14.01.2024 */}
+            14.01.2024
           </p>
           <p>
             <span>Total:</span>
             <LiaRupeeSignSolid />
-            120
+            {order.total}
           </p>
           {dropOrderItemInfo ? <IoIosArrowDown /> : <IoIosArrowUp />}
         </div>
@@ -66,10 +76,9 @@ const OrderItem = () => {
           transition={{ duration: 0.2 }}
           className="order-items"
         >
-          <OrderItemInfo />
-          <OrderItemInfo />
-          <OrderItemInfo />
-          <OrderItemInfo />
+          {order.items?.map((item, index) => (
+            <OrderItemInfo key={index} item={item} />
+          ))}
         </motion.div>
       </OutsideClickHandler>
     </div>
@@ -80,7 +89,13 @@ export default function Orders() {
   const [selectedValue, setSelectedValue] = useState("All");
 
   // console.log(selectedValue);
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
+  const orderHistory = useSelector((state) => state.order.orderHistory); // get the order history from the state object
 
+  useEffect(() => {
+    dispatch(getOrderHistory(token));
+  }, []);
   return (
     <div className="orders">
       <Navbar />
@@ -104,9 +119,9 @@ export default function Orders() {
           </div>
         </motion.div>
         <div className="order-summary">
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
+          {orderHistory?.map((order, index) => (
+            <OrderItem key={index} order={order} />
+          ))}
         </div>
       </div>
     </div>

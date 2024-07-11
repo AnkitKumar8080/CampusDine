@@ -7,6 +7,7 @@
   box-shadow: $box-shadow-dark;
   margin: 1rem;
   position: relative;
+  width: auto;
 
   .close-cart {
     position: absolute;
@@ -78,9 +79,9 @@
 .cart-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: $bg-secondary;
   border-radius: $border-radius-high;
-  width: max-content;
   gap: 6rem;
   color: $text-primary;
   padding: 1rem;
@@ -103,6 +104,8 @@
     gap: 1em;
     img {
       height: 4em;
+      width: 5em;
+      border-radius: 50%;
     }
   }
   .item-count {

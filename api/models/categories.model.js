@@ -4,22 +4,22 @@ import { generateUUID } from "../utils/uuid.js";
 
 class categoriesModel {
   // get categories by Id
-  static getCategoryById = async (categoryId) => {
-    const db = await connectDB();
-    try {
-      // fetch categories by categoryId
-      const result = db.execute(
-        "SELECT * FROM Categories WHERE categoryId = ?",
-        [categoryId]
-      );
+  // static getCategoryById = async (categoryId) => {
+  //   const db = await connectDB();
+  //   try {
+  //     // fetch categories by categoryId
+  //     const result = db.execute(
+  //       "SELECT * FROM Categories WHERE categoryId = ?",
+  //       [categoryId]
+  //     );
 
-      return result[0][0];
-    } catch (error) {
-      console.log("error getting category by id ", error.message);
-    } finally {
-      if (db) db.release();
-    }
-  };
+  //     return result[0][0];
+  //   } catch (error) {
+  //     console.log("error getting category by id ", error.message);
+  //   } finally {
+  //     if (db) db.release();
+  //   }
+  // };
 
   // create category
   static createCategory = async (categoryName, categoryDescription) => {

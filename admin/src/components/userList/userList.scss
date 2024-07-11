@@ -1,0 +1,97 @@
+@import "../../styles/global";
+.user-list {
+  width: 100%;
+  height: 100%;
+  background-color: $bg-primary;
+  color: $text-primary;
+
+  .head {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      font-size: $font-size-xl;
+      // padding: 1rem;
+    }
+    input {
+      outline: none !important;
+      border: none;
+      background-color: $bg-fill-secondary;
+      border-radius: $border-radius-medium;
+      padding: 1em;
+      font-size: $font-size-option;
+      color: $text-primary;
+    }
+  }
+
+  .user-list-wrapper {
+    width: 100%;
+    height: calc(100% - 9rem);
+    overflow-y: scroll;
+
+    // .list-header {
+    //   display: grid;
+    //   grid-template-columns: repeat(5, 1fr);
+    //   justify-items: start;
+    //   align-items: center;
+
+    //   margin: 0.5em 1em;
+    //   padding: 0.5em 2em;
+    //   li {
+    //     list-style: none;
+    //   }
+    // }
+  }
+}
+
+.user-list-child {
+  border: 1px solid rgba(128, 128, 128, 0.116);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  align-items: center;
+  margin: 0.5em 1em;
+  padding: 0.5em 2em;
+  gap: 5em;
+  input,
+  p {
+    outline: none;
+    border: none;
+    background-color: $bg-fill-secondary;
+    color: white;
+    font-size: $font-size-base;
+    padding: 0.5em;
+    border-radius: $border-radius-light;
+  }
+
+  .user-name-avatar {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+
+    img {
+      width: 4em;
+      height: 4em;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .user-update {
+    :nth-child(1) {
+      color: teal;
+    }
+
+    :nth-child(2) {
+      color: red;
+    }
+
+    .icon {
+      margin: 0 0.5em;
+      font-size: $font-size-header;
+      cursor: pointer;
+    }
+  }
+}

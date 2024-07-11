@@ -53,6 +53,7 @@ export default function DropDown({ items, selectedValue, setSelectedValue }) {
         <ul>
           {items.map((item, index) => (
             <motion.li
+              key={index}
               className={`${selectedValue === item ? "selected" : ""}`}
               onClick={() => handleOnItemclick(item)}
             >

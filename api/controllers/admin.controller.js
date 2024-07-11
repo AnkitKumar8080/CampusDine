@@ -1,5 +1,6 @@
 import { categoriesModel } from "../models/categories.model.js";
 import { ProductModel } from "../models/product.model.js";
+import { UserModel } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
@@ -93,4 +94,23 @@ const deleteProduct = asyncHandler(async (req, res, next) => {
     .status(200)
     .json(new ApiResponse(200, {}, "Product deleted successfully"));
 });
-export { createCategory, updateProduct, deleteProduct, createProduct };
+
+const deleteUser = asyncHandler(async (req, res, next) => {
+  const { userId } = req.params;
+
+  const deleteUserResult = await UserModel.deleteUserById(userId);
+  if (!deleteUserResult)
+    throw new ApiError(500, "user not found or something went wrong ");
+
+  // return success if user deleted
+  return res
+    .status(201)
+    .json(new ApiResponse(201, {}, "user deleted successfully"));
+});
+export {
+  createCategory,
+  updateProduct,
+  deleteProduct,
+  deleteUser,
+  createProduct,
+};

@@ -64,6 +64,25 @@ class UserModel {
     }
   };
 
+  // delete the user from the database
+  static deleteUserById = async (userId) => {
+    const db = await connectDB();
+    try {
+      const res = await db.execute("DELETE FROM Users WHERE userId = ?", [
+        userId,
+      ]);
+
+      if (res[0].affectedRows > 0) {
+        return true;
+      }
+    } catch (error) {
+      console.log("error deleting user: ", error.message);
+      return false;
+    } finally {
+      if (db) db.release(); // release the db connection pool
+    }
+  };
+
   // get user by userId
   static getUserById = async (userId) => {
     const db = await connectDB();
@@ -101,13 +120,13 @@ class UserModel {
   static getUserByEmail = async (email) => {
     const db = await connectDB();
     try {
-      const user = await db.query("SELECT * FROM Users WHERE email =?", [
+      const user = await db.query("SELECT * FROM Users WHERE email = ?", [
         email,
       ]);
-
-      const { password, ...rest } = user[0][0];
+      if (!user) return null; // return null if user is not found with email
+      // const { password, ...rest } = user[0][0];
       if (db) db.release();
-      return rest;
+      return user[0][0];
     } catch (error) {
       console.error("Error getting user from db", error);
     } finally {
@@ -146,6 +165,24 @@ class UserModel {
       }
     } catch (error) {
       console.error("Error updating user: ", error.message);
+    } finally {
+      if (db) db.release();
+    }
+  };
+
+  static getAllUsers = async () => {
+    const db = await connectDB();
+
+    try {
+      const users = await db.query(
+        "SELECT userId, avatar,username ,email ,role , createdAt, updatedAt FROM Users"
+      );
+      if (!users) return null;
+
+      if (db) db.release();
+      return users[0];
+    } catch (error) {
+      console.log("Error getting user from db", error);
     } finally {
       if (db) db.release();
     }

@@ -4,7 +4,7 @@ export const productValidator = () => {
   return [
     body("productName").isString().notEmpty(),
     body("image").isString(),
-    body("rating").isInt(),
+    body("rating").isFloat(),
     body("description").isString(),
     body("vegetarian").isBoolean(),
     body("price").isInt(),
