@@ -22,8 +22,20 @@ const signIn = (email, password) => async (dispatch) => {
     }
   } catch (error) {
     console.log(error);
-    dispatch(signInFailure(error.response.data));
-    // console.log(error);
+    // Handle case where server is not responding (error.response is undefined)
+    if (error.response) {
+      dispatch(signInFailure(error.response.data));
+    } else if (error.request) {
+      // Network error or server not responding
+      dispatch(signInFailure({
+        message: "Cannot connect to server. Please make sure the API server is running on port 5000."
+      }));
+    } else {
+      // Something else happened
+      dispatch(signInFailure({
+        message: error.message || "An unexpected error occurred"
+      }));
+    }
   }
 };
 
