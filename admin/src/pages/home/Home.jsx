@@ -21,7 +21,7 @@ export default function Home() {
         {selectedMenu === 1 && <Orders />}
         {selectedMenu === 2 && <AddProducts />}
         {selectedMenu === 3 && <UserList />}
-        {selectedMenu === 4 && <ProductList />}
+        {selectedMenu === 4 && <ProductList key={Date.now()} />}
       </div>
     </div>
   );

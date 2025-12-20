@@ -69,13 +69,12 @@ export const addProduct = (file, productData, token) => async (dispatch) => {
     const config2 = {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "Application/json",
+        "Content-Type": "application/json",
       },
     };
 
     if (file) {
       const data = new FormData();
-
       data.append("file", file);
 
       const res = await axios.post(
@@ -85,17 +84,38 @@ export const addProduct = (file, productData, token) => async (dispatch) => {
       );
 
       if (res) {
-        await axios.post(
+        const productRes = await axios.post(
           `${import.meta.env.VITE_API_BASE_URI}/admin/create-product`,
           productData,
           config2
         );
 
-        dispatch(uploadProductSuccess(res.data));
+        if (productRes.data) {
+          dispatch(uploadProductSuccess(productRes.data));
+          // Refresh products list
+          dispatch(getProducts(token));
+          return { success: true };
+        }
+      }
+    } else {
+      // If no file, just create the product
+      const productRes = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URI}/admin/create-product`,
+        productData,
+        config2
+      );
+
+      if (productRes.data) {
+        dispatch(uploadProductSuccess(productRes.data));
+        // Refresh products list
+        dispatch(getProducts(token));
+        return { success: true };
       }
     }
   } catch (error) {
-    console.log(error);
-    dispatch(uploadProductError(error.response.data));
+    console.log("Error adding product:", error);
+    const errorMessage = error.response?.data?.message || error.response?.data || "Failed to add product";
+    dispatch(uploadProductError(errorMessage));
+    return { success: false, error: errorMessage };
   }
 };

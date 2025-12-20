@@ -4,8 +4,9 @@ import {
   deleteProduct,
   deleteUser,
   updateProduct,
+  deleteCategory,
 } from "../controllers/admin.controller.js";
-import { updateOrderStatus } from "../controllers/order.controller.js";
+import { updateOrderStatus, getAllOrders } from "../controllers/order.controller.js";
 import { getAllUsers } from "../controllers/user.controllers.js";
 import { verifyAdmin } from "../middlewares/admin.authMiddleware.js";
 import { verifyJwt } from "../middlewares/jwt.authMiddleware.js";
@@ -24,10 +25,15 @@ router.route("/get-all-users").get(verifyJwt, verifyAdmin, getAllUsers);
 // router.route("/user/:userId").delete(verifyJwt, verifyAdmin, deleteUser);
 router.route("/user/:userId").delete(deleteUser);
 
-// product routes
+// category routes
 router
   .route("/create-category")
   .post(validate, verifyJwt, verifyAdmin, createCategory);
+router
+  .route("/delete-category/:categoryId")
+  .delete(verifyJwt, verifyAdmin, deleteCategory);
+
+// product routes
 router
   .route("/create-product")
   .post(productValidator(), validate, verifyJwt, verifyAdmin, createProduct);
@@ -39,6 +45,11 @@ router
   .delete(verifyJwt, verifyAdmin, deleteProduct);
 router
   .route("/update-order-status")
-  // .patch(validate, verifyJwt, verifyAdmin, updateOrderStatus);
-  .patch(updateOrderStatus);
+  .patch(verifyJwt, verifyAdmin, updateOrderStatus);
+
+// get all orders (for admin)
+router
+  .route("/get-all-orders")
+  .get(verifyJwt, verifyAdmin, getAllOrders);
+
 export default router;

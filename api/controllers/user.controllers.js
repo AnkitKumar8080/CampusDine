@@ -41,6 +41,9 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 const registerUser = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
+  
+  // Normalize username to lowercase for consistency
+  const normalizedUsername = username.trim().toLowerCase();
 
   // check if user is already registered
   const existingUser = await UserModel.getUserByEmail(email);
@@ -51,7 +54,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   // if not user existes create new user
-  const createdUser = await UserModel.createUser(email, username, password);
+  const createdUser = await UserModel.createUser(email, normalizedUsername, password);
 
   const { password: pass, role, ...rest } = createdUser;
 

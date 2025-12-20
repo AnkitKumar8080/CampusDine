@@ -4,7 +4,6 @@ import {
   mealsImage,
   IoMdStar,
   GoDotFill,
-  LiaRupeeSignSolid,
   FaCirclePlus,
   GoDash,
   GoPlus,
@@ -70,17 +69,17 @@ export default function FoodItemCard({ item }) {
         <p>{item.description} </p>
         <div className="item-rating">
           <span>
-            {item.rating}
+            {item.rating || 0}
             <IoMdStar className="icon star" />{" "}
           </span>
           <span>
-            <GoDotFill className="icon veg" />
-            veg
+            <GoDotFill className={`icon ${item.vegetarian ? 'veg' : 'non-veg'}`} />
+            {item.vegetarian ? 'veg' : 'Non-veg'}
           </span>
         </div>
         <div className="item-cost">
           <span>
-            <LiaRupeeSignSolid className="icon rupee" /> {item.price}
+            <span style={{fontWeight:"bold", marginRight: "0.25em"}}>UGX</span> {item.price}
           </span>
           <div className="add-to-cart">
             {!itemQuantity ? (

@@ -30,8 +30,9 @@ router.route("/upload-images").post(verifyJwt, uploadOtherImages);
 router.route("/register").post(userRegisterValidator(), validate, registerUser);
 router.route("/login").post(userLoginValidator(), validate, loginUser);
 router.route("/updateuser").patch(validate, verifyJwt, updateUser);
-router.route("/get-products").get(validate, verifyJwt, getProducts);
-router.route("/get-categories").get(validate, verifyJwt, getCategories);
+// Products and categories should be viewable without authentication
+router.route("/get-products").get(getProducts);
+router.route("/get-categories").get(getCategories);
 router.route("/order").get(validate, verifyJwt, getAllUserOrders);
 
 router

@@ -10,22 +10,44 @@
   border-bottom: 0.5px solid rgba(128, 128, 128, 0.075);
 
   .left {
-    margin: 0 1em;
+    margin: 0 1.5em;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    
     img {
       height: 60px;
+      width: auto;
+      object-fit: contain;
+    }
+    
+    @media (max-width: 768px) {
+      margin: 0 0.75em;
+      
+      img {
+        height: 45px;
+      }
     }
   }
 
   .mid {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1em;
+    
     .search-inp {
       background-color: $bg-primary;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      text-align: center;
       padding: 0.8rem 1.5rem;
-      width: 30em;
+      width: 100%;
+      max-width: 30em;
       border-radius: $border-radius-high;
       color: white;
+      gap: 0.75em;
 
       input {
         background-color: transparent !important;
@@ -33,20 +55,32 @@
         border: none;
         color: white;
         font-size: $font-size-option;
-        width: 90%;
+        flex: 1;
+        min-width: 0;
       }
       .icon {
         font-size: 20px;
         cursor: pointer;
+        flex-shrink: 0;
       }
+    }
+    
+    @media (max-width: 768px) {
+      padding: 0 0.5em;
     }
   }
 
   .right {
     display: flex;
     align-items: center;
-    margin: 0 2rem;
-    gap: 2rem;
+    margin: 0 1.5rem;
+    gap: 1.5rem;
+    flex-shrink: 0;
+    
+    @media (max-width: 768px) {
+      margin: 0 0.75rem;
+      gap: 0.75rem;
+    }
 
     .profile-pic {
       img {

@@ -21,23 +21,57 @@ class OrderModel {
   };
 
   // update order Status
-  static updateOrderStatus = async (orderStatusId, status) => {
+  static updateOrderStatus = async (orderId, status) => {
     const db = await connectDB();
     try {
-      const [updatedOrderStatus] = await db.execute(
-        "UPDATE OrderStatus SET status = ?, updatedAt=? WHERE orderId = ? ",
-        [status, Date.now().toString(), orderStatusId]
+      // First, verify the order exists
+      const [orderCheck] = await db.execute(
+        "SELECT orderId FROM Orders WHERE orderId = ?",
+        [orderId]
       );
 
-      if (updatedOrderStatus.affectedRows > 0) {
-        return true;
+      if (orderCheck.length === 0) {
+        console.log(`Order with ID ${orderId} not found`);
+        return { success: false, error: "Order not found" };
       }
 
-      return false;
+      const currentTime = Date.now().toString();
+      const normalizedStatus = status.toLowerCase();
+
+      // Build update query with timestamp tracking
+      let updateQuery = "UPDATE OrderStatus SET status = ?, updatedAt = ?";
+      let updateParams = [normalizedStatus, currentTime];
+
+      // Record timestamp based on status
+      if (normalizedStatus === 'placed') {
+        updateQuery += ", placedAt = ?";
+        updateParams.push(currentTime);
+      } else if (normalizedStatus === 'ready') {
+        updateQuery += ", readyAt = ?";
+        updateParams.push(currentTime);
+      } else if (normalizedStatus === 'delivered') {
+        updateQuery += ", deliveredAt = ?";
+        updateParams.push(currentTime);
+      }
+
+      updateQuery += " WHERE orderId = ?";
+      updateParams.push(orderId);
+
+      // Update using orderId (which is what the admin passes)
+      const [updatedOrderStatus] = await db.execute(updateQuery, updateParams);
+
+      if (updatedOrderStatus.affectedRows > 0) {
+        return { success: true };
+      }
+
+      // If no rows were affected, the order status record might not exist
+      console.log(`No order status record found for orderId: ${orderId}`);
+      return { success: false, error: "Order status record not found" };
     } catch (error) {
-      console.log("error while upading :", error);
+      console.error("Error while updating order status:", error);
+      return { success: false, error: error.message || "Database error occurred" };
     } finally {
-      db.release();
+      if (db) db.release();
     }
   };
 
@@ -131,10 +165,11 @@ class OrderModel {
       // integrate the payment for future update
       // after successful payment update the order status to placed
 
-      // update order status to placed
+      // update order status to placed and record timestamp
+      const placedTime = Date.now().toString();
       await db.execute(
-        "UPDATE OrderStatus SET status=?, updatedAt=? WHERE orderStatusId = ?",
-        ["placed", Date.now().toString(), orderStatusId]
+        "UPDATE OrderStatus SET status=?, updatedAt=?, placedAt=? WHERE orderStatusId = ?",
+        ["placed", placedTime, placedTime, orderStatusId]
       );
 
       db.commit(); // commit the db transaction
@@ -180,6 +215,22 @@ class OrderModel {
       return userOrders[0];
     } catch (error) {
       console.log("error while getting user orders : ", error);
+    } finally {
+      db.release();
+    }
+  };
+
+  // get all orders (for admin)
+  static getAllOrders = async () => {
+    const db = await connectDB();
+    try {
+      const allOrders = await db.execute(
+        "SELECT * FROM Orders JOIN OrderStatus ON Orders.orderId = OrderStatus.orderId JOIN OrderItems ON Orders.orderId = OrderItems.orderId JOIN Products ON OrderItems.productId = Products.productId ORDER BY orderNumber DESC"
+      );
+
+      return allOrders[0];
+    } catch (error) {
+      console.log("error while getting all orders : ", error);
     } finally {
       db.release();
     }

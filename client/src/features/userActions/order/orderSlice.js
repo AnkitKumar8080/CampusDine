@@ -33,14 +33,18 @@ const orderSlice = createSlice({
     },
 
     getOrderHistorySuccess: (state, action) => {
+      state.isLoading = false;
       state.message = action.payload.message;
-      state.orderHistory = action.payload.data.userOrders;
+      state.orderHistory = action.payload.data?.userOrders || [];
       state.success = action.payload.success;
+      state.error = null;
     },
 
     getOrderHistoryFailure: (state, action) => {
-      state.error = action.payload.message;
-      state.success = action.payload.success;
+      state.isLoading = false;
+      state.error = action.payload?.message || action.payload || "Failed to fetch orders";
+      state.success = false;
+      state.orderHistory = [];
     },
   },
 });

@@ -33,14 +33,44 @@ const categorySlice = createSlice({
     },
 
     uploadCategorySuccess: (state, action) => {
-      state.uploadCategory = action.payload.data;
+      state.uploadCategory = action.payload?.data || action.payload || {};
       state.uploadCategorySuccess = true;
+      state.uploadCategoryError = null;
     },
 
     uploadCategoryError: (state, action) => {
       state.uploadCategoryError =
-        action.payload.message ||
+        action.payload?.message || action.payload ||
         "something went wrong failed uploading category";
+      state.uploadCategorySuccess = false;
+    },
+    
+    resetCategoryUpload: (state) => {
+      state.uploadCategorySuccess = false;
+      state.uploadCategoryError = null;
+    },
+    
+    deleteCategoryRequest: (state) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    
+    deleteCategorySuccess: (state, action) => {
+      state.isLoading = false;
+      const categoryId = action.payload?.categoryId;
+      state.message = action.payload?.message || "Category deleted successfully";
+      state.error = null;
+      // Remove deleted category from the list
+      if (categoryId && state.categories && Array.isArray(state.categories)) {
+        state.categories = state.categories.filter(
+          (cat) => cat && cat.categoryId !== categoryId
+        );
+      }
+    },
+    
+    deleteCategoryFailure: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload?.message || "Failed to delete category";
     },
   },
 });
@@ -51,6 +81,10 @@ export const {
   getCategoryFailure,
   uploadCategorySuccess,
   uploadCategoryError,
+  resetCategoryUpload,
+  deleteCategoryRequest,
+  deleteCategorySuccess,
+  deleteCategoryFailure,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;

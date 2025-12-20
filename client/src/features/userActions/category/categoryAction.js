@@ -9,13 +9,19 @@ const getCategory = (token) => async (dispatch) => {
   try {
     dispatch(getCategoryRequest());
 
+    // Get token from parameter or localStorage (optional - categories can be viewed without login)
+    const authToken = token || localStorage.getItem("token");
+
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`, // Include any authorization token if needed
         "Content-Type": "application/json",
-        withCredentials: true,
       },
     };
+
+    // Only add Authorization header if token exists
+    if (authToken) {
+      config.headers.Authorization = `Bearer ${authToken}`;
+    }
 
     const res = await axios.get(
       `${import.meta.env.VITE_API_BASE_URI}/users/get-categories`,
@@ -24,7 +30,9 @@ const getCategory = (token) => async (dispatch) => {
 
     dispatch(getCategorySuccess(res.data));
   } catch (error) {
-    dispatch(getCategoryFailure(error.response.data));
+    console.error("Error fetching categories:", error);
+    const errorMessage = error.response?.data || { message: "Failed to fetch categories. Please try again." };
+    dispatch(getCategoryFailure(errorMessage));
   }
 };
 

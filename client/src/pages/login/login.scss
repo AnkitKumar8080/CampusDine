@@ -72,19 +72,31 @@
         }
 
         .button {
-          width: 6rem;
+          // Client button: Height 44-48px, Font 16-18px, Padding 20-24px left/right
+          height: 46px;
+          min-width: 6rem;
           color: white;
-          font-size: $font-size-small;
-          font-weight: $font-weight-medium;
+          font-size: 17px;
+          font-weight: $font-weight-semibold;
           border: none;
           background-color: $bg-fill-color-1;
-          padding: 0.5rem;
+          padding: 0 22px;
           margin: 1rem 0;
-          border-radius: $border-radius-high;
+          border-radius: 7px; // 6-8px for modern look
           cursor: pointer;
-          transition: 0.2s ease-in-out;
+          transition: all 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          
           &:hover {
             background: $bg-fill-color-1-hover;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          }
+          
+          &:active {
+            transform: translateY(0);
           }
         }
 

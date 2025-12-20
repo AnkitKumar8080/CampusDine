@@ -58,14 +58,22 @@ const productSlice = createSlice({
 
     uploadProductSuccess: (state, action) => {
       state.isLoading = false;
-      state.message = action.payload.message || "";
+      state.message = action.payload?.message || "Product added successfully";
       state.success = true;
+      state.error = null;
     },
 
     uploadProductError: (state, action) => {
       state.isLoading = false;
       state.error =
-        action.payload.message || "some error occured while uploading product";
+        action.payload?.message || action.payload || "some error occured while uploading product";
+      state.success = false;
+    },
+    
+    resetProductUpload: (state) => {
+      state.success = false;
+      state.error = null;
+      state.message = null;
     },
   },
 });
@@ -80,6 +88,7 @@ export const {
   deleteProductRequest,
   deleteProductSuccess,
   deleteProductError,
+  resetProductUpload,
 } = productSlice.actions;
 
 export default productSlice.reducer;

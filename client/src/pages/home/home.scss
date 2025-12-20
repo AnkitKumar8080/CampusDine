@@ -14,31 +14,48 @@
 
   .home-wrapper {
     width: 70%;
-    width: 70%;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 1rem 0;
-    // background-color: $bg-primary;
-    // border: 1px solid rgba(211, 211, 211, 0.089);
+    padding: 2rem 1rem;
+    
+    @media (max-width: 768px) {
+      width: 95%;
+      padding: 1rem 0.5rem;
+    }
 
     h1 {
       color: $text-primary;
       font-weight: $font-weight-medium;
-      padding: 0.2rem;
-      margin-left: 4rem;
+      padding: 0.5rem 1rem;
+      margin: 0 0 2rem 2rem;
       display: inline-block;
       border-bottom: 2px solid $bg-fill-color-green;
+      
+      @media (max-width: 768px) {
+        margin-left: 1rem;
+        font-size: $font-size-h2-mobile;
+      }
     }
 
     .food-items-wrapper {
       margin-top: 2rem;
-      // background-color: teal;
       width: 100%;
       height: max-content;
       display: grid;
-      grid-template-columns: max-content max-content max-content;
-      grid-column-gap: 4rem;
-      row-gap: 4rem;
-      justify-content: center;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 3rem 2rem;
+      justify-items: center;
+      align-items: start;
+      
+      @media (max-width: 768px) {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem 1rem;
+      }
+      
+      @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
     }
   }
 }

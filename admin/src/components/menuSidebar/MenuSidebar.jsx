@@ -11,7 +11,6 @@ import React from "react";
 import { logout } from "../../features/auth/authAction";
 
 export default function MenuSidebar({ selectedMenu, setSelectedMenu }) {
-  console.log(selectedMenu);
   const dispatch = useDispatch();
 
   const handleLogout = () => {

@@ -4,7 +4,6 @@ import {
   GoDash,
   GoPlus,
   mealsImage,
-  LiaRupeeSignSolid,
   MdCancel,
   FaArrowRight,
   RxCross2,
@@ -77,7 +76,7 @@ const CartItem = ({ cartItem }) => {
           </motion.div>
         </div>
         <div className="item-cost">
-          <LiaRupeeSignSolid className="icon" />
+          <span style={{fontWeight:"bold", marginRight: "0.25em"}}>UGX</span>
           {cartItem.price}
         </div>
         <motion.div
@@ -121,7 +120,7 @@ export default function CartItems() {
         {!!cart.cartItems.length && (
           <>
             <p>
-              <span>Total:</span> <LiaRupeeSignSolid className="icon" />
+              <span>Total:</span> <span style={{fontWeight:"bold"}}>UGX</span>
               {cart.totalCost}
             </p>
             <button onClick={handlePlaceOrder}>
