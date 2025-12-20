@@ -12,14 +12,17 @@ export default function CategoryItemCard({
   setActiveSlide,
   categoryId,
 }) {
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => state.auth.token) || localStorage.getItem("token");
   const dispatch = useDispatch();
 
   const handleOnClick = (id, categoryId) => {
-    itemName === "All"
-      ? dispatch(getProducts(token))
-      : dispatch(getProducts(token, categoryId));
-    setActiveSlide(id);
+    const authToken = token || localStorage.getItem("token");
+    if (authToken) {
+      itemName === "All"
+        ? dispatch(getProducts(authToken))
+        : dispatch(getProducts(authToken, categoryId));
+      setActiveSlide(id);
+    }
   };
   return (
     <div

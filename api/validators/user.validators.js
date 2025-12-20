@@ -12,10 +12,10 @@ export const userRegisterValidator = () => {
       .trim()
       .notEmpty()
       .withMessage("Username is required")
-      .isLowercase()
-      .withMessage("Username must be lowercase")
       .isLength({ min: 3 })
-      .withMessage("Username must be at lease 3 characters long"),
+      .withMessage("Username must be at least 3 characters long")
+      .matches(/^[a-zA-Z0-9_]+$/)
+      .withMessage("Username can only contain letters, numbers, and underscores"),
     body("password").trim().notEmpty().withMessage("Password is required"),
   ];
 };

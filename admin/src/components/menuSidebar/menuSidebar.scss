@@ -9,12 +9,18 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
 
   .img-div {
-    top: 2em;
     width: 3.5em;
     height: 3.5em;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+    flex-shrink: 0;
+    
     img {
       width: 100%;
       height: 100%;
@@ -24,32 +30,64 @@
   }
 
   .menu-options {
-    gap: 2em;
+    gap: 1.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: $text-2-primary;
+    flex: 1;
+    justify-content: center;
+    width: 100%;
 
     li {
       list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 0.5em 0;
+      
       .icon {
         font-size: $font-size-header-large;
         cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover {
           color: $text-secondary;
+          transform: scale(1.1);
         }
       }
       &.li-active {
         color: $text-secondary !important;
+        
+        .icon {
+          color: $text-secondary !important;
+        }
       }
     }
   }
 
   .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1em 0;
+    flex-shrink: 0;
+    
     p {
       color: red;
       cursor: pointer;
+      margin: 0;
+      font-size: $font-size-option;
+      transition: opacity 0.2s;
+      
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 }

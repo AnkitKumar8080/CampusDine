@@ -31,6 +31,71 @@
         margin-bottom: 2rem;
       }
 
+      .error-notification {
+        display: flex;
+        align-items: center;
+        gap: 0.75em;
+        padding: 0.875em 1em;
+        margin-bottom: 1.5em;
+        background-color: #fee;
+        border: 1px solid #fcc;
+        border-left: 4px solid #f44;
+        border-radius: $border-radius-light;
+        color: #c33;
+        font-size: $font-size-small;
+        animation: slideIn 0.3s ease-out;
+        position: relative;
+
+        .error-icon {
+          font-size: 1.2em;
+          flex-shrink: 0;
+        }
+
+        .error-message {
+          flex: 1;
+          font-weight: $font-weight-medium;
+          line-height: 1.4;
+        }
+
+        .error-close {
+          background: none;
+          border: none;
+          color: #c33;
+          font-size: 1.5em;
+          line-height: 1;
+          cursor: pointer;
+          padding: 0;
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+          transition: all 0.2s;
+          flex-shrink: 0;
+
+          &:hover {
+            background-color: rgba(204, 51, 51, 0.1);
+            transform: scale(1.1);
+          }
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       .login-form {
         height: 100%;
         width: 100%;
@@ -73,19 +138,37 @@
         }
 
         .button {
-          width: 6rem;
+          // Admin button: Height 32-36px, Font 14px, Padding 12px left/right
+          height: 34px;
+          min-width: 6rem;
           color: white;
-          font-size: $font-size-small;
+          font-size: 14px;
           font-weight: $font-weight-medium;
           border: none;
           background-color: $bg-fill-color-1;
-          padding: 0.5rem;
+          padding: 0 12px;
           margin: 1rem 0;
-          border-radius: $border-radius-high;
+          border-radius: $border-radius-light;
           cursor: pointer;
-          transition: 0.2s ease-in-out;
-          &:hover {
+          transition: all 0.2s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+          
+          &:hover:not(:disabled) {
             background: $bg-fill-color-1-hover;
+            transform: translateY(-1px);
+          }
+          
+          &:active:not(:disabled) {
+            transform: translateY(0);
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background-color: rgba(0, 0, 0, 0.3);
           }
         }
 

@@ -97,6 +97,27 @@ class categoriesModel {
       if (db) db.release();
     }
   };
+
+  // delete category by id
+  static deleteCategoryById = async (categoryId) => {
+    const db = await connectDB();
+    try {
+      const [result] = await db.execute(
+        "DELETE FROM Categories WHERE categoryId = ?",
+        [categoryId]
+      );
+
+      if (result.affectedRows > 0) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.log("error deleting category", error);
+      return false;
+    } finally {
+      if (db) db.release();
+    }
+  };
 }
 
 export { categoriesModel };

@@ -23,4 +23,19 @@ connectDB()
     startServer();
     runCronJobForOrderExpiration();
   })
-  .catch((err) => console.log("Error connecting to database: " + err.message));
+  .catch((err) => {
+    console.error("\n❌ Error connecting to database:");
+    console.error("Error message:", err.message);
+    console.error("Error code:", err.code);
+    console.error("\n💡 Please check:");
+    console.error("1. MySQL service is running");
+    console.error("2. Database credentials in .env file are correct");
+    console.error("3. Database 'CampusDine' exists");
+    console.error("4. MySQL port is correct (default: 3306)");
+    console.error("\nCurrent .env settings:");
+    console.error("Host:", process.env.MYSQL_DB_HOST || "not set");
+    console.error("Port:", process.env.MYSQL_DB_PORT || "not set");
+    console.error("User:", process.env.MYSQL_DB_USER || "not set");
+    console.error("Database:", process.env.MYSQL_DB_DATABASE || "not set");
+    process.exit(1);
+  });

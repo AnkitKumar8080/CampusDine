@@ -2,6 +2,8 @@
 $bg-primary: #18171c;
 $bg-secondary: #100f14;
 
+$bg-fill-secondary: rgba(59, 59, 59, 0.26);
+
 $bg-fill-color-1: #e5570f;
 $bg-fill-color-1-hover: #cf4f0f;
 $bg-fill-color-green: #12c458;
@@ -19,13 +21,30 @@ $btn-1-bg: #12c458;
 $btn-2-bg: #f00c2d;
 $btn-3-bg: #ed3d54;
 
-/* Font Sizes */
-$font-size-small: 0.875em; // 14px / 16px = 0.875em
-$font-size-base: 1em; // 16px / 16px = 1em
-$font-size-option: 1.125em; // 18px / 16px = 1.125em
-$font-size-option-large: 1.25em; // 20px / 16px = 1.25em
-$font-size-header: 1.5em; // 24px / 16px = 1.5em
-$font-size-header-large: 1.875em; // 30px / 16px = 1.875em
+/* Typography - Client-Facing Sizes */
+// H1 (Main Title): 32px-40px desktop, 28px mobile
+$font-size-h1-desktop: 2.5rem; // 40px
+$font-size-h1-mobile: 1.75rem; // 28px
+
+// H2 (Section): 24px-30px desktop, 22px mobile
+$font-size-h2-desktop: 1.875rem; // 30px
+$font-size-h2-mobile: 1.375rem; // 22px
+
+// Body Text: 16px-18px desktop, 16px mobile
+$font-size-body-desktop: 1.125rem; // 18px
+$font-size-body-mobile: 1rem; // 16px
+
+// Small Text: 13px-14px desktop, 12px mobile
+$font-size-small-desktop: 0.875rem; // 14px
+$font-size-small-mobile: 0.75rem; // 12px
+
+/* Legacy Font Sizes (for backward compatibility) */
+$font-size-small: 0.875rem; // 14px
+$font-size-base: 1rem; // 16px
+$font-size-option: 1.125rem; // 18px
+$font-size-option-large: 1.25rem; // 20px
+$font-size-header: 1.5rem; // 24px
+$font-size-header-large: 1.875rem; // 30px
 
 /* Font Weights */
 $font-weight-light: 300;
@@ -90,5 +109,90 @@ $border-radius-high: 20px;
     color: red;
     text-align: center;
     height: 1em;
+  }
+}
+
+/* Typography Styles */
+h1 {
+  font-size: $font-size-h1-desktop;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-h1-mobile;
+  }
+}
+
+h2 {
+  font-size: $font-size-h2-desktop;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-h2-mobile;
+  }
+}
+
+body, p, span, div {
+  font-size: $font-size-body-desktop;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-body-mobile;
+  }
+}
+
+small, .small-text, .caption, .timestamp {
+  font-size: $font-size-small-desktop;
+  
+  @media (max-width: 768px) {
+    font-size: $font-size-small-mobile;
+  }
+}
+
+/* Client Button Styles - Conversion Focused */
+button, .button, .btn {
+  // Client buttons: Height 44-48px, Font 16-18px, Padding 20-24px left/right
+  height: 46px; // Average of 44-48px (Finger-Friendly standard)
+  font-size: 17px; // Average of 16-18px
+  padding: 0 22px; // Average of 20-24px
+  border: none;
+  border-radius: 7px; // Average of 6-8px for modern, professional look
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: $font-weight-semibold;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  // Button variants
+  &.btn-primary {
+    background-color: $bg-fill-color-1;
+    color: $text-primary;
+    
+    &:hover {
+      background-color: $bg-fill-color-1-hover;
+    }
+  }
+  
+  &.btn-success {
+    background-color: $bg-fill-color-green;
+    color: $text-primary;
+  }
+  
+  &.btn-danger {
+    background-color: $bg-fill-color-red;
+    color: $text-primary;
+  }
+  
+  &.btn-secondary {
+    background-color: $bg-fill-secondary;
+    color: $text-primary;
   }
 }

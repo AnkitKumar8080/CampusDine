@@ -6,23 +6,28 @@
   color: $text-primary;
 
   .head {
-    padding: 1rem;
+    padding: 1.5rem 2rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1em;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
 
     p {
       font-size: $font-size-xl;
-      // padding: 1rem;
+      margin: 0;
+      font-weight: $font-weight-semibold;
     }
     input {
       outline: none !important;
       border: none;
       background-color: $bg-fill-secondary;
       border-radius: $border-radius-medium;
-      padding: 1em;
+      padding: 0.75em 1em;
       font-size: $font-size-option;
       color: $text-primary;
+      min-width: 200px;
     }
   }
 
@@ -49,12 +54,18 @@
 .user-list-child {
   border: 1px solid rgba(128, 128, 128, 0.116);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  justify-items: center;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr;
   align-items: center;
   margin: 0.5em 1em;
-  padding: 0.5em 2em;
-  gap: 5em;
+  padding: 1em 2em;
+  gap: 1.5em;
+  border-radius: $border-radius-light;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+  
   input,
   p {
     outline: none;
@@ -64,22 +75,43 @@
     font-size: $font-size-base;
     padding: 0.5em;
     border-radius: $border-radius-light;
+    margin: 0;
+    text-align: left;
+    
+    &:disabled {
+      background-color: transparent;
+      cursor: default;
+    }
   }
 
   .user-name-avatar {
     display: flex;
     align-items: center;
     gap: 1em;
+    justify-self: start;
+    min-width: 0;
 
     img {
-      width: 4em;
-      height: 4em;
+      width: 3.5em;
+      height: 3.5em;
       border-radius: 50%;
       object-fit: cover;
+      flex-shrink: 0;
+    }
+    
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
   .user-update {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75em;
+    
     :nth-child(1) {
       color: teal;
     }
@@ -89,9 +121,16 @@
     }
 
     .icon {
-      margin: 0 0.5em;
       font-size: $font-size-header;
       cursor: pointer;
+      padding: 0.25em;
+      border-radius: $border-radius-light;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: scale(1.1);
+      }
     }
   }
 }

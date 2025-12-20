@@ -107,10 +107,25 @@ const deleteUser = asyncHandler(async (req, res, next) => {
     .status(201)
     .json(new ApiResponse(201, {}, "user deleted successfully"));
 });
+
+const deleteCategory = asyncHandler(async (req, res, next) => {
+  const { categoryId } = req.params;
+
+  const deleteCategoryResult = await categoriesModel.deleteCategoryById(categoryId);
+  if (!deleteCategoryResult) {
+    throw new ApiError(500, "Category not found or something went wrong");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Category deleted successfully"));
+});
+
 export {
   createCategory,
   updateProduct,
   deleteProduct,
   deleteUser,
   createProduct,
+  deleteCategory,
 };

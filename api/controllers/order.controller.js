@@ -21,24 +21,36 @@ export const placeOrder = asyncHandler(async (req, res) => {
 
 // update order status route (only for admin)
 export const updateOrderStatus = asyncHandler(async (req, res) => {
-  const { orderStatusId, status } = req.query;
+  const { orderStatusId, orderId, status } = req.query;
 
-  if (!orderStatusId && !status) {
-    throw new ApiError(400, "orderStatusId and status must be provided");
+  // Accept either orderStatusId or orderId (prefer orderId for consistency)
+  const idToUse = orderId || orderStatusId;
+
+  if (!idToUse || !status) {
+    throw new ApiError(400, "orderId (or orderStatusId) and status must be provided");
+  }
+
+  // Validate status value
+  const validStatuses = ["placed", "ready", "delivered", "cancelled", "processing", "expired"];
+  const normalizedStatus = status.toLowerCase().trim();
+  
+  if (!validStatuses.includes(normalizedStatus)) {
+    throw new ApiError(400, `Invalid status. Valid statuses are: ${validStatuses.join(", ")}`);
   }
 
   const orderStatRes = await OrderModel.updateOrderStatus(
-    orderStatusId,
-    status
+    idToUse,
+    normalizedStatus
   );
 
-  if (!orderStatRes) {
-    throw new ApiError(500, "error updating order status");
+  if (!orderStatRes || !orderStatRes.success) {
+    const errorMessage = orderStatRes?.error || "Error updating order status";
+    throw new ApiError(500, errorMessage);
   }
 
   return res
-    .status(201)
-    .json(new ApiResponse(201, {}, "Order updated successfully"));
+    .status(200)
+    .json(new ApiResponse(200, {}, "Order status updated successfully"));
 });
 
 // get all user orders
@@ -62,6 +74,27 @@ export const getAllUserOrders = asyncHandler(async (req, res) => {
         200,
         { userOrders: filteredOrders },
         "order fetched successfully"
+      )
+    );
+});
+
+// get all orders (for admin)
+export const getAllOrders = asyncHandler(async (req, res) => {
+  const allOrders = await OrderModel.getAllOrders();
+
+  if (!allOrders) {
+    throw new ApiError(500, "Error while getting all orders");
+  }
+
+  const filteredOrders = await transformUserOrderData(allOrders);
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { userOrders: filteredOrders },
+        "All orders fetched successfully"
       )
     );
 });

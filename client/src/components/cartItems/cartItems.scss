@@ -54,23 +54,31 @@
     }
 
     button {
+      // Client button: Height 44-48px, Font 16-18px, Padding 20-24px left/right
+      height: 46px;
+      font-size: 17px;
+      padding: 0 22px;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 1em;
       background-color: $bg-fill-color-green;
       outline: none;
       border: none;
-      padding: 0.5em 1em;
-      border-radius: $border-radius-high;
+      border-radius: 7px; // 6-8px for modern look
       cursor: pointer;
-      font-size: $font-size-base;
       font-weight: $font-weight-semibold;
       letter-spacing: 1px;
       color: black;
-      transition: 0.2s;
+      transition: all 0.2s ease;
 
       &:hover {
-        scale: 1.05;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+      
+      &:active {
+        transform: translateY(0);
       }
     }
   }
@@ -82,9 +90,16 @@
   justify-content: space-between;
   background-color: $bg-secondary;
   border-radius: $border-radius-high;
-  gap: 6rem;
+  gap: 1.5rem;
   color: $text-primary;
   padding: 1rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
 
   .item-info,
   .item-count,
@@ -98,19 +113,44 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
+    flex-shrink: 0;
+    
+    @media (max-width: 768px) {
+      width: 100%;
+      justify-content: space-between;
+    }
   }
 
   .item-info {
     gap: 1em;
+    flex: 1;
+    min-width: 0;
+    
     img {
       height: 4em;
-      width: 5em;
+      width: 4em;
       border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    
+    p {
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
+  
   .item-count {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    
     span {
-      margin: 0.5em;
+      margin: 0;
+      min-width: 2ch;
+      text-align: center;
     }
 
     .icon-holder {
@@ -118,9 +158,24 @@
       border-radius: 50%;
       padding: 5px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+      
+      &:hover {
+        background-color: rgba(37, 37, 37, 0.6);
+      }
     }
   }
+  
   .item-cost {
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+    font-weight: $font-weight-semibold;
+    white-space: nowrap;
+    
     .icon {
       font-size: $font-size-option;
       color: $bg-fill-color-green;
@@ -134,5 +189,12 @@
     color: red;
     font-size: $font-size-header;
     cursor: pointer;
+    padding: 0.25em;
+    border-radius: $border-radius-light;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
   }
 }

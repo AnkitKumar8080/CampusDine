@@ -18,12 +18,13 @@ import { getProducts } from "../../features/userActions/product/productAction";
 export default function App() {
   const [activeSlide, setActiveSlide] = useState(1);
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => state.auth.token) || localStorage.getItem("token");
 
   // fetch the categories when component mounted
   useEffect(() => {
+    // Categories can be fetched without token
     dispatch(getCategory(token));
-  }, []);
+  }, [dispatch, token]);
 
   const category = useSelector((state) => state.category);
 

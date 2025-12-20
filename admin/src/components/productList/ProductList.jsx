@@ -1,7 +1,6 @@
 import { mealsImage, profilePic } from "../../assets";
 import {
   AiOutlineEdit,
-  BsCurrencyRupee,
   IoCheckmarkSharp,
   MdDeleteOutline,
   RxCross2,
@@ -73,14 +72,13 @@ function ProductListChild({ product }) {
       <div className="product-vegetarian">
         <input
           type="text"
-          Z
           value={product.vegetarian ? "veg" : "Non - veg"}
           disabled={!toggleEditMode}
         />
       </div>
 
       <div className="product-price">
-        <BsCurrencyRupee />{" "}
+      <span style={{fontWeight:"bold"}}>UGX</span>{" "}
         <input type="number" value={product.price} disabled={!toggleEditMode} />
       </div>
 
@@ -112,18 +110,25 @@ function ProductListChild({ product }) {
 }
 
 export default function ProductList() {
-  // const [productsList, setProductsList] = useState(
-  //   useSelector((state) => state.product.products)
-  // );
-  const [products, setProducts] = useState(
-    useSelector((state) => state.product.products)
-  );
   const { token } = useSelector((state) => state.auth);
+  const products = useSelector((state) => state.product.products);
+  const { success, message } = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getProducts(token));
   }, [dispatch, token]);
+  
+  // Refresh products when a product is successfully added or deleted
+  useEffect(() => {
+    if (success || message === "deleted product") {
+      // Small delay to ensure backend has processed
+      const timer = setTimeout(() => {
+        dispatch(getProducts(token));
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [success, message, dispatch, token]);
 
   // useEffect(() => {
   //   setProducts(productList);
@@ -155,12 +160,20 @@ export default function ProductList() {
       <div className="product-list-wrapper">
         <div className="head">
           <p>Product List</p>
-          <input
-            type="text"
-            placeholder="search for product..."
-            // onKeyDown={handleInputKeyDown}
-            // onChange={checkIfInputEmpty}
-          />
+          <div style={{ display: 'flex', gap: '1em', alignItems: 'center' }}>
+            <input
+              type="text"
+              placeholder="search for product..."
+              // onKeyDown={handleInputKeyDown}
+              // onChange={checkIfInputEmpty}
+            />
+            <button 
+              className="refresh-btn"
+              onClick={() => dispatch(getProducts(token))}
+            >
+              Refresh
+            </button>
+          </div>
         </div>
 
         <div className="product-list-scroll">
@@ -170,10 +183,21 @@ export default function ProductList() {
             <p>Ratings</p>
             <p>Veg</p>
             <p>Price</p>
+            <p>Actions</p>
           </div>
-          {products?.map((product, index) => (
-            <ProductListChild key={index} product={product} />
-          ))}
+          {products && products.length > 0 ? (
+            products.map((product, index) => (
+              <ProductListChild key={product.productId || index} product={product} />
+            ))
+          ) : (
+            <div style={{ 
+              textAlign: 'center', 
+              padding: '2em', 
+              color: 'rgba(255, 255, 255, 0.5)' 
+            }}>
+              No products found. Add a product to see it here.
+            </div>
+          )}
         </div>
       </div>
     </div>

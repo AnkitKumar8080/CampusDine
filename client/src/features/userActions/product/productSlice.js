@@ -20,13 +20,24 @@ const productSlice = createSlice({
 
     getProductsSuccess: (state, action) => {
       state.isLoading = false;
-      state.message = action.payload.message || "";
-      state.products = action.payload.data.products || [];
+      state.message = action.payload?.message || "";
+      // Handle different response structures
+      if (action.payload?.data?.products) {
+        state.products = action.payload.data.products;
+      } else if (Array.isArray(action.payload?.data)) {
+        state.products = action.payload.data;
+      } else if (Array.isArray(action.payload?.products)) {
+        state.products = action.payload.products;
+      } else {
+        state.products = [];
+      }
+      state.error = null;
     },
 
     getProductsFailure: (state, action) => {
       state.isLoading = false;
-      state.error = action.payload.message || "some error occured";
+      state.error = action.payload?.message || action.payload || "some error occured";
+      state.products = [];
     },
   },
 });

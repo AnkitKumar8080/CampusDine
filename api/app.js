@@ -19,10 +19,15 @@ const app = express();
 const httpServer = http.createServer(app);
 
 // global middlewares
+// Parse CORS_ORIGIN from comma-separated string to array
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : ['http://localhost:5173', 'http://localhost:5174'];
+
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN,
-    credential: true,
+    origin: allowedOrigins,
+    credentials: true,
   })
 );
 

@@ -64,6 +64,11 @@ export const transformUserOrderData = (rawUserOrderData) => {
             orderNumber: order.orderNumber,
             orderStatus: order.status,
             total: order.total,
+            createdAt: order.createdAt,
+            // Status timestamps
+            placedAt: order.placedAt || null,
+            readyAt: order.readyAt || null,
+            deliveredAt: order.deliveredAt || null,
             items: [
               {
                 productId: order.productId,

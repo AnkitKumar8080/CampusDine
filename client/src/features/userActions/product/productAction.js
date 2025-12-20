@@ -9,12 +9,19 @@ const getProducts = (token, categoryId) => async (dispatch) => {
   try {
     dispatch(getProductsRequest());
 
+    // Get token from parameter or localStorage (optional - products can be viewed without login)
+    const authToken = token || localStorage.getItem("token");
+    
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`, // Include any authorization token if needed
         "Content-Type": "application/json",
       },
     };
+    
+    // Only add Authorization header if token exists
+    if (authToken) {
+      config.headers.Authorization = `Bearer ${authToken}`;
+    }
 
     const api_URI = !categoryId
       ? `${import.meta.env.VITE_API_BASE_URI}/users/get-products`
@@ -24,10 +31,24 @@ const getProducts = (token, categoryId) => async (dispatch) => {
 
     const res = await axios.get(api_URI, config);
 
-    dispatch(getProductsSuccess(res.data));
+    // Ensure we have the correct data structure
+    if (res.data && res.data.data && res.data.data.products) {
+      dispatch(getProductsSuccess(res.data));
+    } else {
+      console.error("Unexpected API response structure:", res.data);
+      dispatch(getProductsFailure({ message: "Invalid response format from server" }));
+    }
   } catch (error) {
-    dispatch(getProductsFailure(error.response.data));
-    console.log(error);
+    console.error("Error fetching products:", error);
+    if (error.response?.status === 401) {
+      // Token expired or invalid - clear it
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      dispatch(getProductsFailure({ message: "Session expired. Please login again." }));
+    } else {
+      const errorMessage = error.response?.data || { message: "Failed to fetch products. Please try again." };
+      dispatch(getProductsFailure(errorMessage));
+    }
   }
 };
 
